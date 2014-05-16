@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Curso" table="curso">
+    <indexes>
+      <index name="Curso_NombreCurso_idx" columns="nombreCurso"/>
+    </indexes>
+    <id name="idcurso" type="integer" column="idCurso">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="fechainicio" type="datetime" column="fechaInicio" nullable="false"/>
+    <field name="fechafin" type="datetime" column="fechaFin" nullable="false"/>
+    <field name="duracion" type="string" column="duracion" length="3" nullable="false"/>
+    <field name="horainicio" type="time" column="horaInicio" nullable="false"/>
+    <field name="horafin" type="time" column="horaFin" nullable="false"/>
+    <field name="intensidadhoraria" type="string" column="intensidadHoraria" length="2" nullable="false"/>
+    <field name="descripcion" type="text" column="descripcion" nullable="false"/>
+    <many-to-one field="nombrecurso" target-entity="Nombrecurso">
+      <join-columns>
+        <join-column name="nombreCurso" referenced-column-name="idNombreCurso"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

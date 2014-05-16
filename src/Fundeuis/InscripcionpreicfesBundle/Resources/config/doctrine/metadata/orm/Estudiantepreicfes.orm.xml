@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Estudiantepreicfes" table="estudiantepreicfes">
+    <indexes>
+      <index name="EstudiantePreIcfes_ConocimientoCursos_idx" columns="conocimientoCursos"/>
+      <index name="EstudiantePreIcfes_Colegio_idx" columns="colegio"/>
+      <index name="EstudiantePreIcfes_Universidad_idx" columns="universidad"/>
+    </indexes>
+    <unique-constraints>
+      <unique-constraint name="Usuario_UNIQUE" columns="usuario"/>
+    </unique-constraints>
+    <id name="idestudiantepreicfes" type="bigint" column="idEstudiantePreIcfes">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="nombresacudiente" type="string" column="nombresAcudiente" length="80" nullable="false"/>
+    <field name="apellidosacudiente" type="string" column="apellidosAcudiente" length="80" nullable="false"/>
+    <field name="telefonofijoacudiente" type="string" column="telefonoFijoAcudiente" length="15" nullable="true"/>
+    <field name="telefonocelularacudiente" type="string" column="telefonoCelularAcudiente" length="15" nullable="true"/>
+    <field name="foto" type="string" column="foto" length="100" nullable="true"/>
+    <many-to-one field="usuario" target-entity="Usuario">
+      <join-columns>
+        <join-column name="usuario" referenced-column-name="idUsuario"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="universidad" target-entity="Universidad">
+      <join-columns>
+        <join-column name="universidad" referenced-column-name="idUniversidad"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="conocimientocursos" target-entity="Conocimientocursos">
+      <join-columns>
+        <join-column name="conocimientoCursos" referenced-column-name="idConocimientoCursos"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="colegio" target-entity="Colegio">
+      <join-columns>
+        <join-column name="colegio" referenced-column-name="idColegio"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

@@ -1,0 +1,7 @@
+parameters:
+#    fundeuis_inscripcionpreicfes.example.class: Fundeuis\InscripcionpreicfesBundle\Example
+
+services:
+#    fundeuis_inscripcionpreicfes.example:
+#        class: %fundeuis_inscripcionpreicfes.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

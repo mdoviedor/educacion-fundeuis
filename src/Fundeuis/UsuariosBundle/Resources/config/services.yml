@@ -1,0 +1,7 @@
+parameters:
+#    fundeuis_usuarios.example.class: Fundeuis\UsuariosBundle\Example
+
+services:
+#    fundeuis_usuarios.example:
+#        class: %fundeuis_usuarios.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

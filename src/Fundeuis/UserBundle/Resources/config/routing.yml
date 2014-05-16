@@ -1,0 +1,9 @@
+fundeuis_user_homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: FundeuisUserBundle:Default:index }
+
+login_check:
+    pattern: /login_check
+
+logout:
+    pattern: /logout

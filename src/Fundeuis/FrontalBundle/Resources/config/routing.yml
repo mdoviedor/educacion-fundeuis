@@ -1,0 +1,7 @@
+fundeuis_frontal_homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: FundeuisFrontalBundle:Default:index }
+    
+fundeuis_frontal_index:
+    pattern:  /
+    defaults: { _controller: FundeuisFrontalBundle:Index:index }

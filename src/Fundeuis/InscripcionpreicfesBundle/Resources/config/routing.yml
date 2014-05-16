@@ -1,0 +1,19 @@
+fundeuis_inscripcionpreicfes_homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: FundeuisInscripcionpreicfesBundle:Default:index }
+
+fundeuis_inscripcionpreicfes_cursos_crear:
+    pattern: administrador/administrarCursos/crear
+    defaults: { _controller: FundeuisInscripcionpreicfesBundle:Cursos:Crear }
+
+fundeuis_inscripcionpreicfes_cursos_buscar:
+    pattern: administrador/administrarCursos/buscar
+    defaults: { _controller: FundeuisInscripcionpreicfesBundle:Cursos:Buscar }
+
+fundeuis_inscripcionpreicfes_cursos_modificar:
+    pattern: administrador/administrarCursos/modificar
+    defaults: { _controller: FundeuisInscripcionpreicfesBundle:Cursos:Modificar }
+
+fundeuis_inscripcionpreicfes_cursos_eliminar:
+    pattern: administrador/administrarCursos/eliminar
+    defaults: { _controller: FundeuisInscripcionpreicfesBundle:Cursos:Eliminar }

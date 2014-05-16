@@ -1,0 +1,19 @@
+fundeuis_usuarios_homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: FundeuisUsuariosBundle:Default:index }
+
+fundeuis_usuarios_crear:
+    pattern: /administrador/administrarUsuarios/crear
+    defaults: { _controller: FundeuisUsuariosBundle:Administrar:Crear }
+
+fundeuis_usuarios_modificar:
+    pattern: /administrador/administrarUsuarios/modificar
+    defaults: { _controller: FundeuisUsuariosBundle:Administrar:Modificar }
+
+fundeuis_usuarios_eliminar:
+    pattern: /administrador/administrarUsuarios/eliminar
+    defaults: { _controller: FundeuisUsuariosBundle:Administrar:Eliminar }
+    
+fundeuis_usuarios_buscar:
+    pattern: /administrador/administrarUsuarios/
+    defaults: { _controller: FundeuisUsuariosBundle:Administrar:Buscar }
