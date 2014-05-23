@@ -149,6 +149,14 @@
             <p class="help-block">Seleccione el departamento al que pertenece su ciudad de residencia. </p>
         </div>
     </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label">Ciudad:</label>
+        <div class="col-sm-8">
+            <div id="respuestaDepartamentoCiudad">
+                
+            </div>
+        </div>
+    </div>
 
     <label>Colegio del que egresó</label>
     <div class="form-group">
@@ -164,6 +172,15 @@
             <p class="help-block">Seleccione el departamento al que pertenece el colegio. </p>
         </div>
     </div>
+       <div class="form-group">
+        <label class="col-sm-3 control-label">Ciudad:</label>
+        <div class="col-sm-8">
+            <div id="respuestaCiudadColegio">
+                
+            </div>
+        </div>
+    </div>
+
     <label>Universidad a la que aspira ingresar</label>
     <div class="form-group">
         <label class="col-sm-3 control-label">Departamento:</label>
@@ -195,7 +212,40 @@
 {% block javascripts %}
 
 <script type="text/javascript">
+    var x;
+    x = $(document);
+    x.ready(inicializarEventos);
+
+    function inicializarEventos() {
+
+        var slDepartamentoCiudad;
+        slDepartamentoCiudad = $('#departamentoCiudad');
+        slDepartamentoCiudad.change(buscarCiudadDepartamento);
+        var slDepartamentoColegio;
+        slDepartamentoColegio = $('#departamentoColegio');
+        slDepartamentoColegio.change(buscarCiudadColegio);
+    }
+    function buscarCiudadDepartamento() {
+      
+        var slDepartamentoCiudad;
+        slDepartamentoCiudad = $('#departamentoCiudad').val();
+        var url;
+        url = "{{ path('fundeuis_frontal_busquedaGlobal_buscarciudad', {'departamento': 'text', 'funcion':'ciudad'}) }}";
+        url = url.replace("text", slDepartamentoCiudad);
+         
+        $('#respuestaDepartamentoCiudad').load(url);
+    }
     
+    function buscarCiudadColegio() {
+      
+        var slDepartamentoColegio;
+        slDepartamentoColegio = $('#departamentoColegio').val();
+        var url;
+        url = "{{ path('fundeuis_frontal_busquedaGlobal_buscarciudad', {'departamento': 'text', 'funcion':'ciudadColegio'}) }}";
+        url = url.replace("text", slDepartamentoColegio);
+         
+        $('#respuestaCiudadColegio').load(url);
+    }
 </script>
 
 {% endblock %}

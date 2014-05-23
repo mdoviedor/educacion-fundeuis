@@ -5,3 +5,15 @@ fundeuis_frontal_homepage:
 fundeuis_frontal_index:
     pattern:  /
     defaults: { _controller: FundeuisFrontalBundle:Index:index }
+
+fundeuis_frontal_busquedaGlobal_buscarciudad:
+    pattern: frontal/busquedaGlobal/buscarCiudad/{departamento}.{funcion}
+    defaults: { _controller: FundeuisFrontalBundle:Busquedaglobal:Buscarciudad }
+
+fundeuis_frontal_busquedaGlobal__buscarcolegio:
+    pattern: frontal/busquedaGlobal/buscarColegio/{ciudad}
+    defaults: { _controller: FundeuisFrontalBundle:Busquedaglobal:Buscarcolegio }
+
+fundeuis_frontal_busquedaGlobal__buscaruniversidad:
+    pattern: frontal/busquedaGlobal/buscarUniversidad/{ciudad}
+    defaults: { _controller: FundeuisFrontalBundle:Busquedaglobal:Buscaruniversidad }

@@ -1,0 +1,7 @@
+<select name="{{funcion}}" id="{{funcion}}" class="form-control">
+{% for ciudad in ciudades%}
+    <option value="{{ciudad.idciudad}}">
+        {{ciudad.nombre}}
+    </option>
+    {% endfor%}
+</select>
