@@ -1,7 +1,11 @@
-{% extends "::base.html.twig" %}
+<select name="listaColegio" id="listaColegio" class="form-control">
+    <option value="0">SELECCIONAR</option>
+    {% for colegio in colegios%}
+        <option value="{{colegio.idcolegio}}">
+            {{colegio.nombre}}
+        </option>
+    {% endfor%}
+     
+</select>
+    <p class="help-block">Si no encuentra el colegio, al final de la lista seleccione "otro". </p>
 
-{% block title %}FundeuisFrontalBundle:Busquedaglobal:Buscarcolegio{% endblock %}
-
-{% block body %}
-<h1>Welcome to the Busquedaglobal:Buscarcolegio page</h1>
-{% endblock %}

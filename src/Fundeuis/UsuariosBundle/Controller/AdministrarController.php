@@ -74,11 +74,14 @@ class AdministrarController extends Controller {
                 $em->flush($estudiantePreIcfes);
             }
         }
-        return $this->render('FundeuisUsuariosBundle:Administrar:crear.html.twig', array('formUsuario' => $formUsuario->createView(), 'departamentos' => $departamento, 'formEstudiantePreIcfes' => $formEstudiantesPreIcfes->createView()));
+        return $this->render('FundeuisUsuariosBundle:Administrar:Crear.html.twig', array('formUsuario' => $formUsuario->createView(), 'departamentos' => $departamento, 'formEstudiantePreIcfes' => $formEstudiantesPreIcfes->createView()));
     }
 
     public function ModificarAction() {
-        
+        $departamento = new Departamento();
+        $em = $this->getDoctrine()->getManager();
+        $departamento = $em->getRepository('FundeuisUsuariosBundle:Departamento')->findAll();
+        return $this->render('FundeuisUsuariosBundle:Administrar:Modificar.html.twig');
     }
 
     public function EliminarAction() {
