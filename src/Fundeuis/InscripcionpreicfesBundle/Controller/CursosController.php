@@ -22,7 +22,7 @@ class CursosController extends Controller {
                 return $this->redirect($this->generateUrl('fundeuis_inscripcionpreicfes_cursos_buscar'));
             }
         }
-        return $this->render('FundeuisInscripcionpreicfesBundle:Cursos:crear.html.twig', array('formCurso' => $formCurso->createView()));
+        return $this->render('FundeuisInscripcionpreicfesBundle:Cursos:Crear.html.twig', array('formCurso' => $formCurso->createView()));
     }
 
     public function BuscarAction() {

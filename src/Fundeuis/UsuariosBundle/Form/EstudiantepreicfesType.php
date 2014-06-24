@@ -28,20 +28,22 @@ class EstudiantepreicfesType extends AbstractType {
                     'label' => 'Teléfono celular acudiente:',
                     'required' => false,
                     'attr' => array('class' => 'form-control')))
-                ->add('foto', 'file', array(
+                ->add('archivo', 'file', array(
                     'required' => false,
-                    'data_class' => null,
+                    // 'data_class' => null,
+                    'mapped' => false,
                     'label' => 'Foto:',
                     'attr' => array('class' => 'form-control')
                 ))
 //                    ->add('usuario')
                 ->add('conocimientocursos', 'entity', array(
                     'class' => 'FundeuisUsuariosBundle:Conocimientocursos',
-                    'property' => 'nombre',
-                    'label'=>'* ¿Cómo conoció fundeuis?',
+                    'property' => 'descripcion',
+                    'label' => '* ¿Cómo conoció fundeuis?',
                     'attr' => array('class' => 'form-control')
                 ))
-               
+            //    ->add('formUsuario', new UsuarioType());
+
 //                ->add('colegio')
 //                ->add('universidad')
         ;

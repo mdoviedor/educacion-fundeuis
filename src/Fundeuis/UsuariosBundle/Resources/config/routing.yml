@@ -5,15 +5,32 @@ fundeuis_usuarios_homepage:
 fundeuis_usuarios_crear:
     pattern: /administrador/administrarUsuarios/crear
     defaults: { _controller: FundeuisUsuariosBundle:Administrar:Crear }
+ 
+#Recibe el id correspondiente al numero de documento de identidad del modelo Usuario
+fundeuis_usuarios_crearestudiantepreicfes:
+    pattern: /administrador/administrarUsuarios/crearestudiantepreicfes/{id}
+    defaults: { _controller: FundeuisUsuariosBundle:Administrar:Crearestudiantepreicfes }
 
+#Recibe el id correspondiente al id del modelo User
 fundeuis_usuarios_modificar:
-    pattern: /administrador/administrarUsuarios/modificar
+    pattern: /administrador/administrarUsuarios/modificar/{id}
     defaults: { _controller: FundeuisUsuariosBundle:Administrar:Modificar }
+    
+#Recibe el id correspondiente al numero de documento de identidad del modelo Usuario
+fundeuis_usuarios_modificarestudiantepreicfes:
+    pattern: /administrador/administrarUsuarios/modificarestudiantepreicfes/{id}
+    defaults: { _controller: FundeuisUsuariosBundle:Administrar:Modificarestudiantepreicfes }
 
+#Recibe el id correspondiente al id del modelo User
 fundeuis_usuarios_eliminar:
-    pattern: /administrador/administrarUsuarios/eliminar
+    pattern: /administrador/administrarUsuarios/eliminar/{id}
     defaults: { _controller: FundeuisUsuariosBundle:Administrar:Eliminar }
     
 fundeuis_usuarios_buscar:
-    pattern: /administrador/administrarUsuarios/
-    defaults: { _controller: FundeuisUsuariosBundle:Administrar:Buscar }
+    pattern: /administrador/administrarUsuarios/{parametro}.{limite}
+    defaults: { _controller: FundeuisUsuariosBundle:Administrar:Buscar, parametro: XXX, limite: 30 }
+    
+#Recibe el id correspondiente al id del modelo User
+fundeuis_usuarios_verestudiantepreicfes:
+    pattern: /administrador/administrarUsuarios/verestudiantepreicfes/{id}
+    defaults: { _controller: FundeuisUsuariosBundle:Administrar:Verestudiantepreicfes }

@@ -1,7 +1,10 @@
-{% extends "::base.html.twig" %}
+<select name="listaUniversidad" id="listaUniversidad" class="form-control">
+    <option value="0">SELECCIONAR</option>
+    {% for universidad in universidades%}
+        <option value="{{universidad.iduniversidad}}">
+            {{universidad.nombre}}
+        </option>
+    {% endfor%}
 
-{% block title %}FundeuisFrontalBundle:Busquedaglobal:Buscaruniversidad{% endblock %}
-
-{% block body %}
-<h1>Welcome to the Busquedaglobal:Buscaruniversidad page</h1>
-{% endblock %}
+</select>
+<p class="help-block">Si no encuentra universidad, al final de la lista seleccione "otro". </p>

@@ -1,121 +1,127 @@
 {% extends "::administrador.html.twig" %}
-{% block title %}Fundeuis{% endblock %}
+{% block title %}FundeuisUsuariosBundle:Administrar:Crear{% endblock %}
 {% block titulo %}
-    <h1>Administrar Usuarios: <small>Modificar Estudiante</small></h1>
+    <h1>Administrar Usuarios: <small>Crear estudiante</small></h1>
 {% endblock %}
 {% block submenuizquierdo %}
 {% endblock %}
 {% block submenuderecho %}
 {% endblock %}
 {% block contenido %}
-    <form style="width: 800px;" role="form" class="form-horizontal center-block" action="{{ path('fundeuis_usuarios_modificar', {'id':id}) }}" method="post" {{ form_enctype(formUsuario) }} >
+    <form style="width: 800px;" role="form" class="form-horizontal center-block" action="{{ path('fundeuis_usuarios_crearestudiantepreicfes', {'id':id}) }}" method="post" {{ form_enctype(formEstudiantePreIcfes) }} >
 
-        {{ form_errors(formUsuario) }}     
+
+        {{ form_errors(formEstudiantePreIcfes) }}
         <div class="form-group">
-            {{ form_label(formUsuario.numerodocumentoidentidad.first, null, {'label_attr': {'class': 'col-sm-3 control-label'}}) }}            
+            {{ form_label(formEstudiantePreIcfes.nombresacudiente, null, {'label_attr': {'class': 'col-sm-3 control-label'}}) }}            
             <div class="col-sm-8">
-                {{ form_errors(formUsuario.numerodocumentoidentidad.first) }}
-                {{ form_widget(formUsuario.numerodocumentoidentidad.first) }}
-            </div>
-        </div>
-        <div class="form-group">
-            {{ form_label(formUsuario.numerodocumentoidentidad.second, null, {'label_attr': {'class': 'col-sm-3 control-label'}}) }}            
-            <div class="col-sm-8">
-                {{ form_errors(formUsuario.numerodocumentoidentidad.second) }}                
-                {{ form_widget(formUsuario.numerodocumentoidentidad.second) }}
+                {{ form_errors(formEstudiantePreIcfes.nombresacudiente) }}                
+                {{ form_widget(formEstudiantePreIcfes.nombresacudiente) }}
             </div>
         </div> 
         <div class="form-group">
-            {{ form_label(formUsuario.correoElectronico.first, null, {'label_attr': {'class': 'col-sm-3 control-label'}}) }}            
+            {{ form_label(formEstudiantePreIcfes.apellidosacudiente, null, {'label_attr': {'class': 'col-sm-3 control-label'}}) }}            
             <div class="col-sm-8">
-                {{ form_errors(formUsuario.correoElectronico.first) }}
-                {{ form_widget(formUsuario.correoElectronico.first , {'attr': {'value': usuario.user.email}}) }}
+                {{ form_errors(formEstudiantePreIcfes.apellidosacudiente) }}                
+                {{ form_widget(formEstudiantePreIcfes.apellidosacudiente) }}
             </div>
-        </div>
+        </div> 
+
         <div class="form-group">
-            {{ form_label(formUsuario.correoElectronico.second, null, {'label_attr': {'class': 'col-sm-3 control-label'}}) }}            
+            {{ form_label(formEstudiantePreIcfes.telefonofijoacudiente, null, {'label_attr': {'class': 'col-sm-3 control-label'}}) }}            
             <div class="col-sm-8">
-                {{ form_errors(formUsuario.correoElectronico.second) }}                
-                {{ form_widget(formUsuario.correoElectronico.second, {'attr': {'value': usuario.user.email}}) }}
+                {{ form_errors(formEstudiantePreIcfes.telefonofijoacudiente) }}                
+                {{ form_widget(formEstudiantePreIcfes.telefonofijoacudiente) }}
+            </div>
+        </div> 
+
+        <div class="form-group">
+            {{ form_label(formEstudiantePreIcfes.telefonocelularacudiente, null, {'label_attr': {'class': 'col-sm-3 control-label'}}) }}            
+            <div class="col-sm-8">
+                {{ form_errors(formEstudiantePreIcfes.telefonocelularacudiente) }}                
+                {{ form_widget(formEstudiantePreIcfes.telefonocelularacudiente) }}
             </div>
         </div> 
         <div class="form-group">
-            {{ form_label(formUsuario.primernombre, null, {'label_attr': {'class': 'col-sm-3 control-label'}}) }}            
+            {{ form_label(formEstudiantePreIcfes.archivo, null, {'label_attr': {'class': 'col-sm-3 control-label'}}) }}            
             <div class="col-sm-8">
-                {{ form_errors(formUsuario.primernombre) }}                
-                {{ form_widget(formUsuario.primernombre) }}
+                {{ form_errors(formEstudiantePreIcfes.archivo) }}                
+                {{ form_widget(formEstudiantePreIcfes.archivo) }}
             </div>
         </div> 
         <div class="form-group">
-            {{ form_label(formUsuario.segundonombre, null, {'label_attr': {'class': 'col-sm-3 control-label'}}) }}            
+            {{ form_label(formEstudiantePreIcfes.conocimientocursos, null, {'label_attr': {'class': 'col-sm-3 control-label'}}) }}            
             <div class="col-sm-8">
-                {{ form_errors(formUsuario.segundonombre) }}                
-                {{ form_widget(formUsuario.segundonombre) }}
+                {{ form_errors(formEstudiantePreIcfes.conocimientocursos) }}                
+                {{ form_widget(formEstudiantePreIcfes.conocimientocursos) }}
             </div>
         </div> 
-        <div class="form-group">
-            {{ form_label(formUsuario.primerapellido, null, {'label_attr': {'class': 'col-sm-3 control-label'}}) }}            
-            <div class="col-sm-8">
-                {{ form_errors(formUsuario.primerapellido) }}                
-                {{ form_widget(formUsuario.primerapellido) }}
-            </div>
-        </div> 
-        <div class="form-group">
-            {{ form_label(formUsuario.segundoapellido, null, {'label_attr': {'class': 'col-sm-3 control-label'}}) }}            
-            <div class="col-sm-8">
-                {{ form_errors(formUsuario.segundoapellido) }}                
-                {{ form_widget(formUsuario.segundoapellido) }}
-            </div>
-        </div> 
-        <div class="form-group">
-            {{ form_label(formUsuario.telefonofijo, null, {'label_attr': {'class': 'col-sm-3 control-label'}}) }}            
-            <div class="col-sm-8">
-                {{ form_errors(formUsuario.telefonofijo) }}                
-                {{ form_widget(formUsuario.telefonofijo) }}
-            </div>
-        </div> 
-        <div class="form-group">
-            {{ form_label(formUsuario.telefonocelular, null, {'label_attr': {'class': 'col-sm-3 control-label'}}) }}            
-            <div class="col-sm-8">
-                {{ form_errors(formUsuario.telefonocelular) }}                
-                {{ form_widget(formUsuario.telefonocelular) }}
-            </div>
-        </div> 
-        <div class="form-group">
-            {{ form_label(formUsuario.tipodocumentoidentidad, null, {'label_attr': {'class': 'col-sm-3 control-label'}}) }}            
-            <div class="col-sm-8">
-                {{ form_errors(formUsuario.tipodocumentoidentidad) }}                
-                {{ form_widget(formUsuario.tipodocumentoidentidad) }}
-            </div>
-        </div> 
-        <label>Ciudad de residencia: {{usuario.ciudad.departamento.nombre}} - {{usuario.ciudad.nombre}}</label>
+        <label>Colegio del que egresó</label>
         <div class="form-group">
             <label class="col-sm-3 control-label">Departamento:</label>
             <div class="col-sm-8">
-                <select id="departamentoCiudad" name="departamentoCiudad" class="form-control">
-                    <option value="">SELECCIONAR</option>
+                <select id="departamentoColegio" name="departamentoColegio" class="form-control">
+                    <option value="">SELECCIONAR</option>                   
                     {% for departamento in departamentos %}
                         <option value="{{departamento.iddepartamento}}">{{departamento.nombre}}</option>
                     {% endfor %}
                 </select>
-                <p class="help-block">Seleccione el departamento al que pertenece su ciudad de residencia. </p>
+                <p class="help-block">Seleccione el departamento al que pertenece el colegio. </p>
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-3 control-label">Ciudad:</label>
             <div class="col-sm-8">
-                <div id="respuestaDepartamentoCiudad">
+                <div id="respuestaCiudadColegio">
 
                 </div>
             </div>
-        </div> 
-        {{ form_rest(formUsuario) }}
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">Colegio:</label>
+            <div class="col-sm-8">
+                <div id="respuestaColegio">
 
+                </div>
+            </div>
+        </div>
+        <label>Universidad a la que aspira ingresar</label>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">Departamento:</label>
+            <div class="col-sm-8">
+                <select id="departamentoUniversidad" name="departamentoUniversidad" class="form-control">
+                    <option value="">SELECCIONAR</option>                   
+                    {% for departamento in departamentos %}
+                        <option value="{{departamento.iddepartamento}}">{{departamento.nombre}}</option>
+                    {% endfor %}
+                </select>
+                <p class="help-block">Seleccione el departamento al que pertenece la universidad. </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">Ciudad:</label>
+            <div class="col-sm-8">
+                <div id="respuestaCiudadUniversidad">
+
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">Universidad:</label>
+            <div class="col-sm-8">
+                <div id="respuestaUniversidad">
+
+                </div>
+            </div>
+        </div>
+        {{ form_rest(formEstudiantePreIcfes) }}
         <div style="text-align: right">
-            <button type="submit" class="btn btn-success btn-lg"  >
-                <span class="glyphicon glyphicon-save"></span> Siguiente</button>
+            <button type="submit" class="btn btn-primary btn-lg"  >
+                <span class="glyphicon glyphicon-save"></span> Guardar</button>
+                {#
             <button type="submit" class="btn btn-default btn-lg"  >
-                <span class="glyphicon glyphicon-log-out"></span> Salir</button>
+                <span class="glyphicon glyphicon-log-out"></span> Salir</button> 
+                #}
         </div>
     </form>
     <br>
@@ -243,3 +249,4 @@
     </script>
 
 {% endblock %}
+

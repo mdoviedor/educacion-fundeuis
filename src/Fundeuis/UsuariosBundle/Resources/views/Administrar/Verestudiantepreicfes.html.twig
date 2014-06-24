@@ -1,0 +1,127 @@
+{% extends "::administrador.html.twig" %}
+{% block title %}FundeuisUsuariosBundle:Administrar:Ver{% endblock %}
+{% block titulo %}
+    <h1>Administrar Usuarios</h1>
+{% endblock %}
+{% block submenuizquierdo %}
+{% endblock %}
+{% block submenuderecho %}
+    <a type="button" class="btn btn-default btn-bg" href="{{path('fundeuis_usuarios_buscar')}}">
+        <span class="glyphicon glyphicon-log-out"></span> Salir
+    </a>
+
+{% endblock %}
+{% block contenido %}
+
+    <br>
+    <div class="row">
+        <div class="col-md-6"> 
+            <div class="row">
+                <div class="col-md-12" style="background: #f8f8f8; border: 1px solid #FFFFFF;"><h4>Datos Basicos</h4></div>           
+            </div>
+            <div class="row">
+                <div class="col-md-6" style="background: #f8f8f8; border: 1px solid #FFFFFF;"><h4>Documento de Identidad</h4></div>
+                <div class="col-md-6"><p>{{estudiante.usuario.numerodocumentoidentidad}}</p></div>             
+            </div>
+            <div class="row">          
+                <div class="col-md-6" style="background: #f8f8f8; border: 1px solid #FFFFFF;"><h4>Tipo de documento:</h4></div>
+                <div class="col-md-6"><p>{{estudiante.usuario.tipodocumentoidentidad.nombre}}</p></div>
+            </div>
+            <div class="row">          
+                <div class="col-md-6" style="background: #f8f8f8; border: 1px solid #FFFFFF;"><h4>Nombres:</h4></div>
+                <div class="col-md-6"><p>{{estudiante.usuario.primernombre}} {{estudiante.usuario.segundonombre}}</p></div>
+            </div>
+            <div class="row">          
+                <div class="col-md-6" style="background: #f8f8f8; border: 1px solid #FFFFFF;"><h4>Apellidos:</h4></div>
+                <div class="col-md-6"><p>{{estudiante.usuario.primerapellido}} {{estudiante.usuario.segundoapellido}}</p></div>
+            </div>
+            <div class="row">          
+                <div class="col-md-6" style="background: #f8f8f8; border: 1px solid #FFFFFF;"><h4>Correo Electrónico:</h4></div>
+                <div class="col-md-6"><p>{{estudiante.usuario.user.email}}</p></div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <img src="{{asset(estudiante.foto)}}" class="img-thumbnail center-block">
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-12" style="background: #f8f8f8; border: 1px solid #FFFFFF;"><h4>Datos Complementarios</h4></div>           
+    </div>
+    <div class="row">
+
+        <div class="col-xs-6 col-md-4">
+
+            <div class="row">
+                <div class="col-md-12" style="background: #f8f8f8; border: 1px solid #FFFFFF;"><h4>Teléfonos</h4></div>           
+            </div>
+            <div class="row">
+                <div class="col-md-6" style="background: #f8f8f8; border: 1px solid #FFFFFF;"><h4>Fijo</h4></div>
+                <div class="col-md-6"><p>{{estudiante.usuario.telefonofijo}}</p></div>             
+            </div>
+            <div class="row">          
+                <div class="col-md-6" style="background: #f8f8f8; border: 1px solid #FFFFFF;"><h4>Celular:</h4></div>
+                <div class="col-md-6"><p>{{estudiante.usuario.telefonocelular}}</p></div>
+            </div>
+            <div class="row">          
+                <div class="col-md-6" style="background: #f8f8f8; border: 1px solid #FFFFFF;"><h4>Residencia:</h4></div>
+                <div class="col-md-6"><p>{{estudiante.usuario.ciudad.departamento.nombre}} - {{estudiante.usuario.ciudad.nombre}}</p></div>
+            </div>
+            <div class="row">          
+                <div class="col-md-6" style="background: #f8f8f8; border: 1px solid #FFFFFF;"><h4>Colegio:</h4></div>
+                <div class="col-md-6"><p>{{estudiante.colegio.nombre}} - {{estudiante.colegio.ciudad.departamento.nombre}} - {{estudiante.colegio.ciudad.nombre}}</p></div>
+            </div>
+            <div class="row">
+                <div class="col-md-12" style="background: #f8f8f8; border: 1px solid #FFFFFF;"> <p></p></div>           
+            </div>
+        </div>
+        <div class="col-xs-6 col-md-4">
+
+            <div class="row">
+                <div class="col-md-6" style="background: #f8f8f8; border: 1px solid #FFFFFF;"><h4>Universidad a la que aspira</h4></div>
+                <div class="col-md-6"><p>{{estudiante.universidad.nombre}}</p></div>             
+            </div>
+            <div class="row">          
+                <div class="col-md-6" style="background: #f8f8f8; border: 1px solid #FFFFFF;"><h4>¿Comó conoció Fundeuis?</h4></div>
+                <div class="col-md-6"><p>{{estudiante.conocimientocursos.descripcion}}</p></div>
+            </div>  
+            <div class="row">
+                <div class="col-md-12" style="background: #f8f8f8; border: 1px solid #FFFFFF;"></div>           
+            </div>
+        </div>
+        <div class="col-xs-6 col-md-4">
+            <div class="row">
+                <div class="col-md-12" style="background: #f8f8f8; border: 1px solid #FFFFFF;"><h4>Acudiente</h4></div>           
+            </div>
+            <div class="row">
+                <div class="col-md-6" style="background: #f8f8f8; border: 1px solid #FFFFFF;"><h4>Nombres</h4></div>
+                <div class="col-md-6"><p>{{estudiante.nombresacudiente}}</p></div>             
+            </div>
+            <div class="row">          
+                <div class="col-md-6" style="background: #f8f8f8; border: 1px solid #FFFFFF;"><h4>Apellidos:</h4></div>
+                <div class="col-md-6"><p>{{estudiante.apellidosacudiente}}</p></div>
+            </div>
+            <div class="row">
+                <div class="col-md-12" style="background: #f8f8f8; border: 1px solid #FFFFFF;"><h4>Télefonos</h4></div>           
+            </div>
+            <div class="row">          
+                <div class="col-md-6" style="background: #f8f8f8; border: 1px solid #FFFFFF;"><h4>Fijo:</h4></div>
+                <div class="col-md-6"><p>{{estudiante.telefonofijoacudiente}}</p></div>
+            </div>
+            <div class="row">          
+                <div class="col-md-6" style="background: #f8f8f8; border: 1px solid #FFFFFF;"><h4>Celular:</h4></div>
+                <div class="col-md-6"><p>{{estudiante.telefonocelularacudiente}}</p></div>
+            </div>
+            <div class="row">
+                <div class="col-md-12" style="background: #f8f8f8; border: 1px solid #FFFFFF;"></div>           
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block javascripts %}
+
+{% endblock %}
+
+
+

@@ -1,7 +1,392 @@
-{% extends "::base.html.twig" %}
-
-{% block title %}FundeuisUsuariosBundle:Administrar:Buscar{% endblock %}
-
-{% block body %}
-<h1>Welcome to the Administrar:Buscar page</h1>
+{% extends "::administrador.html.twig" %}
+{% block title %}Fundeuis: Administrador{% endblock %}
+{% block titulo %}
+    <h1>Administrar Usuarios: <small>Buscar</small></h1>
 {% endblock %}
+{% block submenuizquierdo %}
+{% endblock %}
+{% block submenuderecho %}
+
+    <a type="submit" class="btn btn-primary btn-bg" id="botonNuevoUsuarioEstudiantePreicfes" href="{{path('fundeuis_usuarios_crear')}}">
+        <span class="glyphicon glyphicon-plus"></span> Nuevo Estudiante Preicfes
+    </a>  
+    <a type="submit" class="btn btn-primary btn-bg" id="botonNuevoUsuarioAdministrador" href="#">
+        <span class="glyphicon glyphicon-plus"></span> Nuevo Administrador
+    </a>   
+    <button type="submit" class="btn btn-success btn-bg" id="botonModificarUsuario" >
+        <span class="glyphicon glyphicon-refresh"></span> Modificar
+    </button>
+    <button type="submit" class="btn btn-danger btn-bg" id="botonEliminarUsuario">
+        <span class="glyphicon glyphicon-trash"></span> Eliminar
+    </button>
+    <a type="submit" class="btn btn-default btn-bg" id="botonSalir" href="#">
+        <span class="glyphicon glyphicon-log-out"></span> Salir
+    </a>
+    <br>
+    <br>
+
+{% endblock %}
+{% block contenido %}
+
+    <div class="panel-group" id="accordion">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                        <b> De click aquí para deplegar los filtros de busqueda</b>
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading"><b>Parametros de usuario</b></div>
+                        <div class="panel-body">
+                            <form action="" class="form-inline" name="formularioUsuario" id="formularioUsuario" role="form">
+                                <div class="form-group">
+                                    <label class="sr-only" for="campoDocumentoIdentidad">Documento de Identidad</label>
+                                    <input type="text" class="form-control" id="campoDocumentoIdentidad" name="campoDocumentoIdentidad" placeholder="Documento de Identidad">
+                                </div> ó 
+                                <div class="form-group">
+                                    <label class="sr-only" for="campoPrimerNombre">Primer Nombre</label>
+                                    <input type="text" class="form-control" id="campoPrimerNombre" name="campoPrimerNombre" placeholder="Primer Nombre">
+                                </div>                
+                                <div class="form-group">
+                                    <label class="sr-only" for="campoPrimerApellido">Primer Apellido</label>
+                                    <input type="text" class="form-control" id="campoPrimerApellido" name="campoPrimerApellido" placeholder="Primer Apellido">
+                                </div>
+
+                                <button type="submit" class="btn btn-primary btn-bg">Buscar</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="panel panel-primary">
+                        <div class="panel-heading"><b>Parametros de curso</b></div>
+                        <div class="panel-body">
+                            <form action="" class="form-inline" name="formularioUsuario" id="formularioUsuario" role="form">
+                                <div class="form-group">
+                                    <label class="sr-only" for="campoDocumentoIdentidad">Documento de Identidad</label>
+                                    <input type="text" class="form-control" id="campoDocumentoIdentidad" name="campoDocumentoIdentidad" placeholder="Documento de Identidad">
+                                </div> ó 
+                                <div class="form-group">
+                                    <label class="sr-only" for="campoPrimerNombre">Primer Nombre</label>
+                                    <input type="text" class="form-control" id="campoPrimerNombre" name="campoPrimerNombre" placeholder="Primer Nombre">
+                                </div>                
+                                <div class="form-group">
+                                    <label class="sr-only" for="campoPrimerApellido">Primer Apellido</label>
+                                    <input type="text" class="form-control" id="campoPrimerApellido" name="campoPrimerApellido" placeholder="Primer Apellido">
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-bg">Buscar</button>
+                            </form>
+                        </div>
+                    </div>          
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div id="usuarios">
+        <table class="table table-condensed table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>
+
+                    </th>
+                    <th>
+                        Documento Identidad
+                    </th>
+                    <th>
+                        Nombres
+                    </th>
+                    <th>
+                        Apellidos
+                    </th>
+                    <th>
+                        Correo Electrónico
+                    </th>
+                    <th>
+                        ROL
+                    </th>
+
+                    <th>
+
+                    </th>
+                </tr>
+
+            </thead>
+            <tbody>
+                {% for usuario in usuarios%}
+                    <tr>
+                        <td>
+                            <input type="radio" name="radioUsuario" id="radioUsuario" value="{{usuario.user.id}}">
+                        </td>
+                        <td>
+                            {{ usuario.numerodocumentoidentidad }}
+                        </td>
+                        <td>
+                            {{ usuario.primernombre }}  {{ usuario.segundonombre }}
+                        </td>
+                        <td>
+                            {{ usuario.primerapellido }}  {{ usuario.segundoapellido }}
+                        </td>
+                        <td>
+                            {{ usuario.user.email }}
+                        </td>
+                        <td>
+                            {%for item in  usuario.user.roles %}
+                                {%if item == 'ROLE_ESTUDIANTEPREICFES' %}
+                                    ESTUDIENTE PREICFES
+                                {%elseif item == 'ROLE_ADMINISTRADOR' %}
+                                    ADMINISTRADOR
+                                {% endif %}
+                            {% endfor %}
+                        </td>                     
+                        <td>
+                            <a href="{{path('fundeuis_usuarios_verestudiantepreicfes', {'id': usuario.idusuario})}}">
+                                <span class="glyphicon glyphicon-eye-open"></span> Abrir
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="row">
+        <div class="col-md-5"></div>
+        <div class="col-md-2">
+
+            <select class="center-block form-control" id="listaTamano" name="listaTamano">  
+                <option value="{{limite}}">{{limite}}</option>
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="30">30</option>
+                <option value="60">60</option>
+                <option value="90">90</option>
+                <option value="120">120</option>
+                <option value="Todos">Todos</option>                        
+            </select>
+        </div>
+        <div class="col-md-5"></div>
+    </div>
+
+
+
+
+{% endblock %}
+{% block javascripts %}
+
+    <!-- Modal Eliminar Usuario -->
+    <div class="modal fade" id="modalEliminarUsuario" tabindex="-1" role="dialog" aria-labelledby="modalEliminarUsuarioLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Alerta</h4>
+                </div>
+                <div class="modal-body">
+                    Realmente desea ejecutar esta acción.  
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" >Close</button>
+                    <button type="button" class="btn btn-danger" id="botonModalEliminarUsuario"  href="">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade " id="radioVacio" tabindex="-1" role="dialog" aria-labelledby="radioVacioLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Alerta</h4>
+                </div>
+                <div class="modal-body">
+                    Usted no ha seleccionado ningun elemento. Intentelo de nuevo. 
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" >Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var x;
+        x = $(document);
+        x.ready(inicializarEventos);
+        function inicializarEventos() {
+            /*
+             * ***************
+             * Modificar Usuario*
+             * ***************
+             */
+            var btnModificarUsuario;
+            btnModificarUsuario = $('#botonModificarUsuario');
+            btnModificarUsuario.click(modificarUsuario);
+            /*
+             * *****************
+             * Eliminar Usuario*
+             * *****************
+             */
+
+            var btnEliminarUsuario;
+            btnEliminarUsuario = $('#botonEliminarUsuario');
+            btnEliminarUsuario.click(eliminarUsuario);
+
+            var btnModalEliminarUsuario;
+            btnModalEliminarUsuario = $('#botonModalEliminarUsuario');
+            btnModalEliminarUsuario.click(modalEliminarUsuario);
+            /*
+             * Buscar
+             */
+
+            var btn;
+            btn = $('#botonBuscar');
+            btn.click(buscar);
+
+            var btnFiltro;
+            btnFiltro = $('#botonBuscarFiltro');
+            btnFiltro.click(buscarFiltro);
+
+            var sltTamano;
+            sltTamano = $('#listaTamano');
+            sltTamano.change(buscarFiltroTamano);
+        }
+
+        function  modalEliminarUsuario() {
+
+            var rtUsuario;
+            rtUsuario = $('#radioUsuario:checked').val();
+            var url;
+            url = "{{ path('fundeuis_usuarios_eliminar', {'id': 'text'}) }}";
+            url = url.replace("text", rtUsuario);
+            window.open(url, '_self');
+        }
+
+        function eliminarUsuario() {
+            var rtUsuario;
+            rtUsuario = $('#radioUsuario:checked').val();
+            if (rtUsuario == "" || rtUsuario == null) {
+                $('#radioVacio').modal('show');
+            } else {
+                $('#modalEliminarUsuario').modal('show');
+            }
+        }
+
+        function modificarUsuario() {
+            var rtUsuario;
+            rtUsuario = $('#radioUsuario:checked').val();
+            if (rtUsuario == "" || rtUsuario == null) {
+                $('#radioVacio').modal('show');
+            } else {
+                var url;
+                url = "{{ path('fundeuis_usuarios_modificar', {'id': 'text'}) }}";
+                url = url.replace("text", rtUsuario);
+                window.open(url, '_self');
+            }
+        }
+        {#
+        function buscar() {
+            var campoBuscar;
+            var tamano;
+            campoBuscar = $('#campoBuscar').val();
+            tamano = $('#listaTamano').val();
+            if (campoBuscar == "" || campoBuscar == null) {
+                campoBuscar = 'XXX';
+            }
+      
+            var url;
+            url = "{{ path('gs_usuario_buscar', {'parametro':'text1'}) }}";
+            url = url.replace("text1", campoBuscar);
+            window.open(url, '_self');
+        }
+        function buscarFiltro() {
+            var formulario;
+            formulario = $('#formularioBuscarUsuario');
+            var url;
+            url = "{{ path('gs_consultas_usuario_busquedaavanzada')}}";
+            $.ajax({
+                type: "POST",
+                url: url,
+                contentType: "application/x-www-form-urlencoded",
+                data: formulario.serialize(),
+                beforeSend: inicioEnvio,
+                success: function(data)
+                {
+                    $('#usuarios').html(data);
+                },
+                timeout: 4000,
+                error: problemas
+            });
+            return false;
+        }
+        function inicioEnvio()
+        {
+            var x = $("#catalogoBibliografico");
+            x.html('Cargando ...');
+        }
+        function problemas()
+        {
+            $("#catalogoBibliografico").text('Problemas en el servidor. Intentelo de nuevo.');
+        }
+        function buscarFiltroTamano() {
+            var primerNombre;
+            var segundoNombre;
+            var primerApellido;
+            var segundoApellido;
+            var numeroDocumentoIdentidad;
+            var campoBuscar;
+            var tamano;
+            campoBuscar = $('#campoBuscar').val();
+            primerNombre = $('#campoPrimerNombre').val();
+            segundoNombre = $('#campoSegundoNombre').val();
+            primerApellido = $('#campoPrimerApellido').val();
+            segundoApellido = $('#campoSegundoApellido').val();
+            numeroDocumentoIdentidad = $('#campoNumeroDocumentoIdentidad').val();
+            tamano = $('#listaTamano').val();
+            if ((campoBuscar == "" || campoBuscar == null) && (primerApellido == "" || primerApellido == null) && (primerNombre == "" || primerNombre == null) && (segundoApellido == "" || segundoApellido == null)
+                    && (segundoNombre == "" || segundoNombre == null) && (numeroDocumentoIdentidad == "" || numeroDocumentoIdentidad == null)) {
+                var url;
+                url = "{{ path('gs_usuario_buscar', {'limite': 'text'}) }}";
+                url = url.replace("text", tamano);
+                window.open(url, '_self');
+            } else {
+                if (campoBuscar == "" || campoBuscar == null) {
+                    var formulario;
+                    formulario = $('#formularioBuscarUsuario');
+                    var url;
+                    url = "{{ path('gs_consultas_usuario_busquedaavanzada',{'numeroresultados':'text4'})}}";
+                    url = url.replace("text4", tamano);
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        contentType: "application/x-www-form-urlencoded",
+                        data: formulario.serialize(),
+                        beforeSend: inicioEnvio,
+                        success: function(data)
+                        {
+                            $('#usuarios').html(data);
+                        },
+                        timeout: 4000,
+                        error: problemas
+                    });
+                    return false;
+                } else {
+                    var url;
+                    url = "{{ path('gs_usuario_buscar', {'limite': 'text','parametro':'text1'}) }}";
+                    url = url.replace("text", tamano);
+                    url = url.replace("text1", campoBuscar);
+                    window.open(url, '_self');
+                }
+            }
+        }
+    #}
+
+    </script>
+{% endblock %}
+

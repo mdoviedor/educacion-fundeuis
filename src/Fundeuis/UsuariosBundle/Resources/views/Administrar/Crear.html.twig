@@ -8,10 +8,9 @@
 {% block submenuderecho %}
 {% endblock %}
 {% block contenido %}
-    <form style="width: 800px;" role="form" class="form-horizontal center-block" action="{{ path('fundeuis_usuarios_crear') }}" method="post" {{ form_enctype(formUsuario) }}>
+    <form style="width: 800px;" role="form" class="form-horizontal center-block" action="{{ path('fundeuis_usuarios_crear') }}" method="post" {{ form_enctype(formUsuario) }} >
 
-        {{ form_errors(formUsuario) }}
-        {{ form_errors(formEstudiantePreIcfes) }}
+        {{ form_errors(formUsuario) }}     
         <div class="form-group">
             {{ form_label(formUsuario.numerodocumentoidentidad.first, null, {'label_attr': {'class': 'col-sm-3 control-label'}}) }}            
             <div class="col-sm-8">
@@ -89,58 +88,11 @@
                 {{ form_widget(formUsuario.tipodocumentoidentidad) }}
             </div>
         </div> 
-
-        <div class="form-group">
-            {{ form_label(formEstudiantePreIcfes.nombresacudiente, null, {'label_attr': {'class': 'col-sm-3 control-label'}}) }}            
-            <div class="col-sm-8">
-                {{ form_errors(formEstudiantePreIcfes.nombresacudiente) }}                
-                {{ form_widget(formEstudiantePreIcfes.nombresacudiente) }}
-            </div>
-        </div> 
-        <div class="form-group">
-            {{ form_label(formEstudiantePreIcfes.apellidosacudiente, null, {'label_attr': {'class': 'col-sm-3 control-label'}}) }}            
-            <div class="col-sm-8">
-                {{ form_errors(formEstudiantePreIcfes.apellidosacudiente) }}                
-                {{ form_widget(formEstudiantePreIcfes.apellidosacudiente) }}
-            </div>
-        </div> 
-
-        <div class="form-group">
-            {{ form_label(formEstudiantePreIcfes.telefonofijoacudiente, null, {'label_attr': {'class': 'col-sm-3 control-label'}}) }}            
-            <div class="col-sm-8">
-                {{ form_errors(formEstudiantePreIcfes.telefonofijoacudiente) }}                
-                {{ form_widget(formEstudiantePreIcfes.telefonofijoacudiente) }}
-            </div>
-        </div> 
-
-        <div class="form-group">
-            {{ form_label(formEstudiantePreIcfes.telefonocelularacudiente, null, {'label_attr': {'class': 'col-sm-3 control-label'}}) }}            
-            <div class="col-sm-8">
-                {{ form_errors(formEstudiantePreIcfes.telefonocelularacudiente) }}                
-                {{ form_widget(formEstudiantePreIcfes.telefonocelularacudiente) }}
-            </div>
-        </div> 
-
-        <div class="form-group">
-            {{ form_label(formEstudiantePreIcfes.foto, null, {'label_attr': {'class': 'col-sm-3 control-label'}}) }}            
-            <div class="col-sm-8">
-                {{ form_errors(formEstudiantePreIcfes.foto) }}                
-                {{ form_widget(formEstudiantePreIcfes.foto) }}
-            </div>
-        </div> 
-        <div class="form-group">
-            {{ form_label(formEstudiantePreIcfes.conocimientocursos, null, {'label_attr': {'class': 'col-sm-3 control-label'}}) }}            
-            <div class="col-sm-8">
-                {{ form_errors(formEstudiantePreIcfes.conocimientocursos) }}                
-                {{ form_widget(formEstudiantePreIcfes.conocimientocursos) }}
-            </div>
-        </div> 
-
         <label>Ciudad de residencia</label>
         <div class="form-group">
             <label class="col-sm-3 control-label">Departamento:</label>
             <div class="col-sm-8">
-                <select id="departamentoCiudad" name="departamentoCiudad" class="form-control">
+                <select id="departamentoCiudad" name="departamentoCiudad" class="form-control" required="">
                     <option value="">SELECCIONAR</option>
                     {% for departamento in departamentos %}
                         <option value="{{departamento.iddepartamento}}">{{departamento.nombre}}</option>
@@ -156,57 +108,14 @@
 
                 </div>
             </div>
-        </div>
-
-        <label>Colegio del que egresó</label>
-        <div class="form-group">
-            <label class="col-sm-3 control-label">Departamento:</label>
-            <div class="col-sm-8">
-                <select id="departamentoColegio" name="departamentoColegio" class="form-control">
-                    <option value="">SELECCIONAR</option>                   
-                    {% for departamento in departamentos %}
-                        <option value="{{departamento.iddepartamento}}">{{departamento.nombre}}</option>
-                    {% endfor %}
-                </select>
-                <p class="help-block">Seleccione el departamento al que pertenece el colegio. </p>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-3 control-label">Ciudad:</label>
-            <div class="col-sm-8">
-                <div id="respuestaCiudadColegio">
-
-                </div>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-3 control-label">Colegio:</label>
-            <div class="col-sm-8">
-                <div id="respuestaColegio">
-
-                </div>
-            </div>
-        </div>
-        <label>Universidad a la que aspira ingresar</label>
-        <div class="form-group">
-            <label class="col-sm-3 control-label">Departamento:</label>
-            <div class="col-sm-8">
-                <select id="departamentoUniversidad" name="departamentoUniversidad" class="form-control">
-
-                </select>
-                <p class="help-block">Seleccione el departamento al que pertenece la universidad. </p>
-            </div>
-        </div>
-
-
-
+        </div> 
         {{ form_rest(formUsuario) }}
-        {{ form_rest(formEstudiantePreIcfes) }}
+
         <div style="text-align: right">
-            <button type="submit" class="btn btn-primary btn-lg"  >
-                <span class="glyphicon glyphicon-save"></span> Guardar</button>
-            <button type="submit" class="btn btn-default btn-lg"  >
-                <span class="glyphicon glyphicon-log-out"></span> Salir</button>
+            <button type="submit" class="btn btn-success btn-lg"  >
+                <span class="glyphicon glyphicon-save"></span> Siguiente</button>
+            <a type="button" class="btn btn-default btn-lg" href="{{path('fundeuis_usuarios_buscar')}}"  >
+                <span class="glyphicon glyphicon-log-out"></span> Salir</a>
         </div>
     </form>
     <br>
@@ -232,6 +141,14 @@
             slCiudadColegio = $('#ciudadColegio');
             slCiudadColegio.change(buscarColegio);
 
+            var slDepartamentoUniversidad;
+            slDepartamentoUniversidad = $('#departamentoUniversidad');
+            slDepartamentoUniversidad.change(buscarCiudadUniversidad);
+
+            var slCiudadUniversidad;
+            slCiudadUniversidad = $('#ciudadUniversidad');
+            slCiudadUniversidad.change(buscarUniversidad);
+
 
         }
         {# 
@@ -242,7 +159,7 @@
                 var slDepartamentoCiudad;
                 slDepartamentoCiudad = $('#departamentoCiudad').val();
                 var url;
-                url = "{{ path('fundeuis_frontal_busquedaGlobal_buscarciudad', {'departamento': 'text', 'funcion':'ciudad'}) }}";
+                url = "{{ path('fundeuis_frontal_busquedaGlobal_buscarciudad', {'departamento': 'text', 'funcion':'listaCiudad'}) }}";
                 url = url.replace("text", slDepartamentoCiudad);
 
                 $('#respuestaDepartamentoCiudad').load(url);
@@ -268,14 +185,14 @@
 
             function recargarEventos() {
                 x = $(document);
-                x.ready(inicializarEventos);                
+                x.ready(inicializarEventos);
             }
 
         {#
             Buscar el colegio del cual se egreso a partir de la ciudad.
         #}
             function buscarColegio() {
-               
+
                 var slCiudadColegio;
                 slCiudadColegio = $('#ciudadColegio').val();
 
@@ -284,6 +201,44 @@
                 url = url.replace("text", slCiudadColegio);
 
                 $('#respuestaColegio').load(url);
+            }
+
+
+            /*
+             * 
+             * 
+             */
+        {# 
+     Buscar la ciudad donde se encuentra el colegio del que se egreso. Se busca a partir del departamento
+  #}
+
+      function buscarCiudadUniversidad() {
+          var slDepartamentoUniversidad;
+          slDepartamentoUniversidad = $('#departamentoUniversidad').val();
+          var url;
+          url = "{{ path('fundeuis_frontal_busquedaGlobal_buscarciudad', {'departamento': 'text', 'funcion':'ciudadUniversidad'}) }}";
+          url = url.replace("text", slDepartamentoUniversidad);
+          $('#respuestaCiudadUniversidad').load(url);
+          setTimeout(function() {
+              recargarEventos()
+          }, 2000);
+
+      }
+
+
+        {#
+            Buscar el colegio del cual se egreso a partir de la ciudad.
+        #}
+            function buscarUniversidad() {
+
+                var slCiudadUniversidad;
+                slCiudadUniversidad = $('#ciudadUniversidad').val();
+
+                var url;
+                url = "{{ path('fundeuis_frontal_busquedaGlobal__buscaruniversidad', {'ciudad': 'text'}) }}";
+                url = url.replace("text", slCiudadUniversidad);
+
+                $('#respuestaUniversidad').load(url);
             }
     </script>
 
