@@ -17,3 +17,8 @@ fundeuis_inscripcionpreicfes_cursos_modificar:
 fundeuis_inscripcionpreicfes_cursos_eliminar:
     pattern: administrador/administrarCursos/eliminar
     defaults: { _controller: FundeuisInscripcionpreicfesBundle:Cursos:Eliminar }
+    
+#Recibe el id correspondiente al id del usuario del modelo Usuario
+fundeuis_inscripcionpreicfes_cursos__matricular:
+    pattern: administrador/administrarCursos/matricular/{id}
+    defaults: { _controller: FundeuisInscripcionpreicfesBundle:Matricula:Matricular }

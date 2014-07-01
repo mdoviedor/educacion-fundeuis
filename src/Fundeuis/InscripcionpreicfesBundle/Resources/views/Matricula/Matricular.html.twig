@@ -1,0 +1,173 @@
+{% extends "::administrador.html.twig" %}
+{% block title %}Matricular{% endblock %}
+{% block titulo %}
+    <h1>Administrar Usuarios: <small>Matricular</small></h1>
+{% endblock %}
+{% block submenuizquierdo %}
+{% endblock %}
+{% block submenuderecho %}
+{% endblock %}
+{% block contenido %}
+    <form style="width: 800px;" role="form" class="form-horizontal center-block" action="{{ path('fundeuis_inscripcionpreicfes_cursos__matricular', {'id': usuario.idusuario}) }}" method="post" {{ form_enctype(formUsuarioCurso) }} >
+
+        {{ form_errors(formUsuarioCurso) }}  
+        <label>{{usuario.primernombre | upper}} {{usuario.segundonombre |upper}} {{usuario.primerapellido |upper}} {{usuario.segundoapellido | upper}}</label>
+        <div class="form-group">
+            {{ form_label(formUsuarioCurso.estado, null, {'label_attr': {'class': 'col-sm-3 control-label'}}) }}            
+            <div class="col-sm-8">
+                {{ form_errors(formUsuarioCurso.estado) }}
+                {{ form_widget(formUsuarioCurso.estado) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(formUsuarioCurso.archivo, null, {'label_attr': {'class': 'col-sm-3 control-label'}}) }}            
+            <div class="col-sm-8">
+                {{ form_errors(formUsuarioCurso.archivo) }}                
+                {{ form_widget(formUsuarioCurso.archivo) }}
+            </div>
+        </div> 
+        <div class="form-group">
+            <label class="col-sm-3 control-label">Curso</label>
+            <div class="col-sm-8">
+                <select class="form-control" id="listaCurso" name="listaCurso">
+                    {%for curso in cursos%}
+                        <option id="{{curso.idcurso}}">{{curso.nombrecurso.nombre}} <b>Inicio:</b> {{curso.fechainicio | date('d-m-Y')}}</option>
+                    {%endfor%}
+                </select>
+            </div>
+        </div>
+
+        {{ form_rest(formUsuarioCurso) }}
+
+        <div style="text-align: right">
+            <button type="submit" class="btn btn-success btn-lg"  >
+                <span class="glyphicon glyphicon-save"></span> Matricular</button>
+            <a type="button" class="btn btn-default btn-lg" href="{{path('fundeuis_usuarios_buscar')}}"  >
+                <span class="glyphicon glyphicon-log-out"></span> Salir</a>
+        </div>
+    </form>
+    <br>
+{% endblock %}
+{% block javascripts %}
+
+    <script type="text/javascript">
+        var x;
+        x = $(document);
+        x.ready(inicializarEventos);
+
+        function inicializarEventos() {
+
+            var slDepartamentoCiudad;
+            slDepartamentoCiudad = $('#departamentoCiudad');
+            slDepartamentoCiudad.change(buscarCiudadDepartamento);
+
+            var slDepartamentoColegio;
+            slDepartamentoColegio = $('#departamentoColegio');
+            slDepartamentoColegio.change(buscarCiudadColegio);
+
+            var slCiudadColegio;
+            slCiudadColegio = $('#ciudadColegio');
+            slCiudadColegio.change(buscarColegio);
+
+            var slDepartamentoUniversidad;
+            slDepartamentoUniversidad = $('#departamentoUniversidad');
+            slDepartamentoUniversidad.change(buscarCiudadUniversidad);
+
+            var slCiudadUniversidad;
+            slCiudadUniversidad = $('#ciudadUniversidad');
+            slCiudadUniversidad.change(buscarUniversidad);
+
+
+        }
+        {# 
+            Buscar la ciudad de origen a partir del departamento seleccionado 
+        #}
+            function buscarCiudadDepartamento() {
+
+                var slDepartamentoCiudad;
+                slDepartamentoCiudad = $('#departamentoCiudad').val();
+                var url;
+                url = "{{ path('fundeuis_frontal_busquedaGlobal_buscarciudad', {'departamento': 'text', 'funcion':'listaCiudad'}) }}";
+                url = url.replace("text", slDepartamentoCiudad);
+
+                $('#respuestaDepartamentoCiudad').load(url);
+
+            }
+
+        {# 
+           Buscar la ciudad donde se encuentra el colegio del que se egreso. Se busca a partir del departamento
+        #}
+
+            function buscarCiudadColegio() {
+                var slDepartamentoColegio;
+                slDepartamentoColegio = $('#departamentoColegio').val();
+                var url;
+                url = "{{ path('fundeuis_frontal_busquedaGlobal_buscarciudad', {'departamento': 'text', 'funcion':'ciudadColegio'}) }}";
+                url = url.replace("text", slDepartamentoColegio);
+                $('#respuestaCiudadColegio').load(url);
+                setTimeout(function() {
+                    recargarEventos()
+                }, 2000);
+
+            }
+
+            function recargarEventos() {
+                x = $(document);
+                x.ready(inicializarEventos);
+            }
+
+        {#
+            Buscar el colegio del cual se egreso a partir de la ciudad.
+        #}
+            function buscarColegio() {
+
+                var slCiudadColegio;
+                slCiudadColegio = $('#ciudadColegio').val();
+
+                var url;
+                url = "{{ path('fundeuis_frontal_busquedaGlobal__buscarcolegio', {'ciudad': 'text'}) }}";
+                url = url.replace("text", slCiudadColegio);
+
+                $('#respuestaColegio').load(url);
+            }
+
+
+            /*
+             * 
+             * 
+             */
+        {# 
+     Buscar la ciudad donde se encuentra el colegio del que se egreso. Se busca a partir del departamento
+  #}
+
+      function buscarCiudadUniversidad() {
+          var slDepartamentoUniversidad;
+          slDepartamentoUniversidad = $('#departamentoUniversidad').val();
+          var url;
+          url = "{{ path('fundeuis_frontal_busquedaGlobal_buscarciudad', {'departamento': 'text', 'funcion':'ciudadUniversidad'}) }}";
+          url = url.replace("text", slDepartamentoUniversidad);
+          $('#respuestaCiudadUniversidad').load(url);
+          setTimeout(function() {
+              recargarEventos()
+          }, 2000);
+
+      }
+
+
+        {#
+            Buscar el colegio del cual se egreso a partir de la ciudad.
+        #}
+            function buscarUniversidad() {
+
+                var slCiudadUniversidad;
+                slCiudadUniversidad = $('#ciudadUniversidad').val();
+
+                var url;
+                url = "{{ path('fundeuis_frontal_busquedaGlobal__buscaruniversidad', {'ciudad': 'text'}) }}";
+                url = url.replace("text", slCiudadUniversidad);
+
+                $('#respuestaUniversidad').load(url);
+            }
+    </script>
+
+{% endblock %}
