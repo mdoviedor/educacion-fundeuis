@@ -28,3 +28,13 @@ fundeuis_inscripcionpreicfes_cursos_eliminar:
 fundeuis_inscripcionpreicfes_cursos__matricular:
     pattern: administrador/administrarCursos/matricular/{id}
     defaults: { _controller: FundeuisInscripcionpreicfesBundle:Matricula:Matricular }
+    
+#Recibe el id correspondiente al id de la matricula del modelo UsuarioMatricula
+fundeuis_inscripcionpreicfes_cursos_matricular_cambiarestado:
+    pattern: administrador/administrarCursos/matricular/cambiarEstado/{id}
+    defaults: { _controller: FundeuisInscripcionpreicfesBundle:Matricula:Cambiarestado }
+    
+#Recibe el id correspondiente al id de la matricula del modelo UsuarioMatricula
+fundeuis_inscripcionpreicfes_cursos_matricular_eliminar:
+    pattern: administrador/administrarCursos/matricular/eliminar/{id}
+    defaults: { _controller: FundeuisInscripcionpreicfesBundle:Matricula:Eliminar }

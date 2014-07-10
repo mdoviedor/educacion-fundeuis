@@ -4,6 +4,7 @@ namespace Fundeuis\InscripcionpreicfesBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Fundeuis\InscripcionpreicfesBundle\Entity\Curso;
+use Fundeuis\InscripcionpreicfesBundle\Entity\UsuarioCurso;
 use Fundeuis\InscripcionpreicfesBundle\Form\CursoType;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -59,8 +60,13 @@ class CursosController extends Controller {
     public function VistaAction($id) {
         $em = $this->getDoctrine()->getManager();
         $curso = new Curso();
+        $usuarioCurso = new UsuarioCurso();
+        $usuarioPreMatriculados = new UsuarioCurso();
+        $usuarioCurso = $em->getRepository('FundeuisInscripcionpreicfesBundle:UsuarioCurso')->findBy(array('curso' => $id, 'estado' => true));
+        $usuarioPreMatriculados = $em->getRepository('FundeuisInscripcionpreicfesBundle:UsuarioCurso')->findBy(array('curso' => $id, 'estado' => false));
+
         $curso = $em->getRepository('FundeuisInscripcionpreicfesBundle:Curso')->find($id);
-        return $this->render('FundeuisInscripcionpreicfesBundle:Cursos:Vista.html.twig', array('curso' => $curso));
+        return $this->render('FundeuisInscripcionpreicfesBundle:Cursos:Vista.html.twig', array('curso' => $curso, 'matriculados' => $usuarioCurso, 'prematriculados' => $usuarioPreMatriculados));
     }
 
     public function EliminarAction() {

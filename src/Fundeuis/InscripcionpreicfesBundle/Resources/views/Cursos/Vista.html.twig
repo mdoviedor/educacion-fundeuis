@@ -55,11 +55,181 @@
     <div class="row">
         <div class="col-md-12" style="background: #f8f8f8; border: 1px solid #FFFFFF;"><h4>Estudiantes Matriculados</h4></div>           
     </div>
+    {%if matriculados%}
+        <table class="table table-condensed table-hover table-striped">
+            <thead>
+                <tr>     
+                    <th>
+                        Id de Matrícula
+                    </th>
+                    <th>
+                        Documento de Identidad
+                    </th>
+                    <th>
+                        Nombres
+                    </th>
+                    <th>
+                        Apellidos
+                    </th>
+                    <th>
 
+                    </th>
+                    <th>
+
+                    </th>
+                    <th>
+
+                    </th>
+                    <th>
+
+                    </th>
+
+                </tr>
+
+            </thead>
+            <tbody>
+                {% for matriculado in matriculados%}
+                    <tr>
+                        <td>
+                            {{ matriculado.idusuariocurso }}
+                        </td>
+                        <td>
+                            {{ matriculado.usuario.numerodocumentoidentidad }}
+                        </td>
+                        <td>
+                            {{matriculado.usuario.primernombre | upper}}  {{matriculado.usuario.segundonombre | upper}}
+                        </td>
+                        <td>
+                            {{matriculado.usuario.primerapellido | upper}}  {{matriculado.usuario.segundoapellido | upper}}
+                        </td>                  
+                        <td>
+                            <a href="{{path('fundeuis_usuarios_verestudiantepreicfes', {'id': matriculado.usuario.idusuario})}}">
+                                <span class="glyphicon glyphicon-eye-open"></span> Abrir
+                            </a>
+                        </td>    
+                        <td>
+                            <a onClick='return ConfirmarAccion();' href="{{path('fundeuis_inscripcionpreicfes_cursos_matricular_cambiarestado', {'id': matriculado.idusuariocurso})}}">
+                                <span class="glyphicon glyphicon-refresh"></span> Cambiar Estado
+                            </a>
+                        </td>
+                        <td>
+                            <a onClick='return ConfirmarAccion();' href="{{path('fundeuis_inscripcionpreicfes_cursos_matricular_eliminar', {'id': matriculado.idusuariocurso})}}">
+                                <span class="glyphicon glyphicon-trash"></span> Eliminar
+                            </a>
+                        </td>
+                        <td>
+                            <a href="{{ asset(matriculado.rutaarchivo~matriculado.nombrearchivo~'.zip') }}">
+                                <span class="glyphicon glyphicon-cloud-download"></span> Descargar Adjuntos
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    {%else%}
+        <br>
+        <div class="alert alert-info" role="alert"><strong>Información.</strong> En este momento no se encuentra ningún estudiante matrículado.</div>
+        <br>
+    {%endif%}
+
+    <div class="row">
+        <div class="col-md-12" style="background: #f8f8f8; border: 1px solid #FFFFFF;"><h4>Estudiantes Pre - Matrículados</h4></div>           
+    </div>
+
+    {%if prematriculados%}
+        <table class="table table-condensed table-hover table-striped">
+            <thead>
+                <tr>     
+                    <th>
+                        Id de Matrícula
+                    </th>
+                    <th>
+                        Documento de Identidad
+                    </th>
+                    <th>
+                        Nombres
+                    </th>
+                    <th>
+                        Apellidos
+                    </th>
+                    <th>
+
+                    </th>
+                    <th>
+
+                    </th>
+                    <th>
+
+                    </th>
+                    <th>
+
+                    </th>
+
+                </tr>
+
+            </thead>
+            <tbody>
+                {% for prematriculado in prematriculados%}
+                    <tr>
+                        <td>
+                            {{ prematriculado.idusuariocurso }}
+                        </td>
+                        <td>
+                            {{ prematriculado.usuario.numerodocumentoidentidad }}
+                        </td>
+                        <td>
+                            {{prematriculado.usuario.primernombre | upper}}  {{prematriculado.usuario.segundonombre | upper}}
+                        </td>
+                        <td>
+                            {{prematriculado.usuario.primerapellido | upper}}  {{prematriculado.usuario.segundoapellido | upper}}
+                        </td>                  
+                        <td>
+                            <a href="{{path('fundeuis_usuarios_verestudiantepreicfes', {'id': prematriculado.usuario.idusuario})}}">
+                                <span class="glyphicon glyphicon-eye-open"></span> Abrir
+                            </a>
+                        </td>    
+                        <td>
+                            <a  onClick='return ConfirmarAccion();' href="{{path('fundeuis_inscripcionpreicfes_cursos_matricular_cambiarestado', {'id': prematriculado.idusuariocurso})}}">
+                                <span class="glyphicon glyphicon-refresh"></span> Cambiar Estado
+                            </a>
+                        </td>
+                        <td>
+                            <a onClick='return ConfirmarAccion();' href="{{path('fundeuis_inscripcionpreicfes_cursos_matricular_eliminar', {'id': prematriculado.idusuariocurso})}}">
+                                <span class="glyphicon glyphicon-trash"></span> Eliminar
+                            </a>
+                        </td>
+                        <td>
+                            <a href="{{ asset(prematriculado.rutaarchivo~prematriculado.nombrearchivo~'.zip') }}">
+                                <span class="glyphicon glyphicon-cloud-download"></span> Descargar Adjuntos
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    {%else%}
+        <br>
+        <div class="alert alert-info" role="alert"><strong>Información.</strong> En este momento no se encuentra ningún estudiante pre - matrículado.</div>
+        <br>
+    {%endif%}
 
 {% endblock %}
 {% block javascripts %}
-
+    <script type="text/javascript">
+        function ConfirmarAccion()
+        {
+            if (confirm("¿Desea ejecutar esta acción?"))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+    </script>
 {% endblock %}
 
 
