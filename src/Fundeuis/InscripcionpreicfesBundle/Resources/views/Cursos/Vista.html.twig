@@ -1,0 +1,67 @@
+{% extends "::administrador.html.twig" %}
+{% block title %}Fundeuis{% endblock %}
+{% block titulo %}
+    <h1>Administrar Cursos</h1>
+{% endblock %}
+{% block submenuizquierdo %}
+{% endblock %}
+{% block submenuderecho %}
+    <a type="button" class="btn btn-default btn-bg" href="{{path('fundeuis_inscripcionpreicfes_cursos_buscar')}}">
+        <span class="glyphicon glyphicon-log-out"></span> Salir
+    </a>
+
+{% endblock %}
+{% block contenido %}
+
+    <br>
+    <div class="row">
+        <div class="col-md-12" style="background: #f8f8f8; border: 1px solid #FFFFFF;"><h4>Información del Curso</h4></div>           
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-6" style="background: #f8f8f8; border: 1px solid #FFFFFF;"><h4>Curso:</h4></div>
+                <div class="col-md-6">{{curso.nombrecurso.nombre}}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-6" style="background: #f8f8f8; border: 1px solid #FFFFFF;"><h4>Fecha de Inicio:</h4></div>
+                <div class="col-md-6">{{curso.fechainicio | date('d-m-Y')}}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-6" style="background: #f8f8f8; border: 1px solid #FFFFFF;"><h4>Hora de Inicio:</h4></div>
+                <div class="col-md-6">{{curso.horainicio | date('H:m')}}</div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-6" style="background: #f8f8f8; border: 1px solid #FFFFFF;"><h4>Duración</h4></div>
+                <div class="col-md-6">{{curso.duracion}} Horas</div>
+            </div>
+            <div class="row">
+                <div class="col-md-6" style="background: #f8f8f8; border: 1px solid #FFFFFF;"><h4>Fecha de Finalización</h4></div>
+                <div class="col-md-6">{{curso.fechafin | date('d-m-Y')}}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-6" style="background: #f8f8f8; border: 1px solid #FFFFFF;"><h4>Hora de Finalización</h4></div>
+                <div class="col-md-6">{{curso.horafin | date('H:m')}}</div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3" style="background: #f8f8f8; border: 1px solid #FFFFFF;"><h4>Descripción</h4></div>
+        <div class="col-md-9">{{curso.descripcion}}</div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-12" style="background: #f8f8f8; border: 1px solid #FFFFFF;"><h4>Estudiantes Matriculados</h4></div>           
+    </div>
+
+
+{% endblock %}
+{% block javascripts %}
+
+{% endblock %}
+
+
+
+

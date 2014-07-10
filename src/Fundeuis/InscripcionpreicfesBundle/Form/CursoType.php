@@ -17,7 +17,7 @@ class CursoType extends AbstractType {
         $builder
                 ->add('fechainicio', 'date', array(
                     'empty_value' => array('year' => 'Año', 'month' => 'Mes', 'day' => 'Día'),
-                    'years' => range($ahora, $ahora + 5),
+                    'years' => range($ahora - 3, $ahora + 5),
                     'label' => '* Fecha de inicio:'
                 ))
                 ->add('fechafin', 'date', array(

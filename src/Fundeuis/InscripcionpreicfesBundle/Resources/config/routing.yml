@@ -7,12 +7,18 @@ fundeuis_inscripcionpreicfes_cursos_crear:
     defaults: { _controller: FundeuisInscripcionpreicfesBundle:Cursos:Crear }
 
 fundeuis_inscripcionpreicfes_cursos_buscar:
-    pattern: administrador/administrarCursos/buscar
-    defaults: { _controller: FundeuisInscripcionpreicfesBundle:Cursos:Buscar }
+    pattern: administrador/administrarCursos/{limite}.{parametro}
+    defaults: { _controller: FundeuisInscripcionpreicfesBundle:Cursos:Buscar, limite: 30, parametro: XXX }
 
+#Recibe el id correspondiente al idcurso del modelo Curso.
 fundeuis_inscripcionpreicfes_cursos_modificar:
-    pattern: administrador/administrarCursos/modificar
+    pattern: administrador/administrarCursos/modificar/{id}
     defaults: { _controller: FundeuisInscripcionpreicfesBundle:Cursos:Modificar }
+    
+#Recibe el id correspondiente al idcurso del modelo Curso.
+fundeuis_inscripcionpreicfes_cursos_vista:
+    pattern: administrador/administrarCursos/vista/{id}
+    defaults: { _controller: FundeuisInscripcionpreicfesBundle:Cursos:Vista }
 
 fundeuis_inscripcionpreicfes_cursos_eliminar:
     pattern: administrador/administrarCursos/eliminar

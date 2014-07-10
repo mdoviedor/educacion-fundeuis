@@ -8,44 +8,66 @@
 {% block submenuderecho %}
 {% endblock %}
 {% block contenido %}
-    <form style="width: 800px;" role="form" class="form-horizontal center-block" action="{{ path('fundeuis_inscripcionpreicfes_cursos__matricular', {'id': usuario.idusuario}) }}" method="post" {{ form_enctype(formUsuarioCurso) }} >
-
-        {{ form_errors(formUsuarioCurso) }}  
-        <label>{{usuario.primernombre | upper}} {{usuario.segundonombre |upper}} {{usuario.primerapellido |upper}} {{usuario.segundoapellido | upper}}</label>
-        <div class="form-group">
-            {{ form_label(formUsuarioCurso.estado, null, {'label_attr': {'class': 'col-sm-3 control-label'}}) }}            
-            <div class="col-sm-8">
-                {{ form_errors(formUsuarioCurso.estado) }}
-                {{ form_widget(formUsuarioCurso.estado) }}
-            </div>
+    {%if mensaje == '0'%}
+    {%elseif mensaje == '1'%}
+        <div class="alert alert-danger" role="alert">
+            <strong>Error.</strong> Usted no ha seleccionado ningun arcvhio. Intentelo de nuevo.
         </div>
-        <div class="form-group">
-            {{ form_label(formUsuarioCurso.archivo, null, {'label_attr': {'class': 'col-sm-3 control-label'}}) }}            
-            <div class="col-sm-8">
-                {{ form_errors(formUsuarioCurso.archivo) }}                
-                {{ form_widget(formUsuarioCurso.archivo) }}
-            </div>
-        </div> 
-        <div class="form-group">
-            <label class="col-sm-3 control-label">Curso</label>
-            <div class="col-sm-8">
-                <select class="form-control" id="listaCurso" name="listaCurso">
-                    {%for curso in cursos%}
-                        <option id="{{curso.idcurso}}">{{curso.nombrecurso.nombre}} <b>Inicio:</b> {{curso.fechainicio | date('d-m-Y')}}</option>
-                    {%endfor%}
-                </select>
-            </div>
+    {%elseif mensaje == '2'%}
+        <div class="alert alert-danger" role="alert">
+            <strong>Error.</strong> El archivo seleccionado no es "zip". Intentelo de nuevo. 
         </div>
+    {%elseif mensaje == '3'%}
+        <div class="alert alert-danger" role="alert">
+            <strong>Error.</strong> El usuario ya se encuentra matriculado en este curso. 
+        </div>   
+    {%endif%}
 
-        {{ form_rest(formUsuarioCurso) }}
-
-        <div style="text-align: right">
-            <button type="submit" class="btn btn-success btn-lg"  >
-                <span class="glyphicon glyphicon-save"></span> Matricular</button>
-            <a type="button" class="btn btn-default btn-lg" href="{{path('fundeuis_usuarios_buscar')}}"  >
-                <span class="glyphicon glyphicon-log-out"></span> Salir</a>
+    {%if mensaje == '4'%}
+        <div class="alert alert-danger" role="alert">
+            <strong>Error.</strong> El estudiante se encuentra haciendo un curso. No se puede realizar la matricula.
         </div>
-    </form>
+    {%else%}
+        <form style="width: 800px;" role="form" class="form-horizontal center-block" action="{{ path('fundeuis_inscripcionpreicfes_cursos__matricular', {'id': usuario.idusuario}) }}" method="post" {{ form_enctype(formUsuarioCurso) }} >
+
+            {{ form_errors(formUsuarioCurso) }}  
+            <label>{{usuario.primernombre | upper}} {{usuario.segundonombre |upper}} {{usuario.primerapellido |upper}} {{usuario.segundoapellido | upper}}</label>
+            <div class="form-group">
+                {{ form_label(formUsuarioCurso.estado, null, {'label_attr': {'class': 'col-sm-3 control-label'}}) }}            
+                <div class="col-sm-8">
+                    {{ form_errors(formUsuarioCurso.estado) }}
+                    {{ form_widget(formUsuarioCurso.estado) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_label(formUsuarioCurso.archivo, null, {'label_attr': {'class': 'col-sm-3 control-label'}}) }}            
+                <div class="col-sm-8">
+                    {{ form_errors(formUsuarioCurso.archivo) }}                
+                    {{ form_widget(formUsuarioCurso.archivo) }}
+                </div>
+            </div> 
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Curso</label>
+                <div class="col-sm-8">
+                    <select class="form-control" id="listaCurso" name="listaCurso">
+                        {%for curso in cursos%}
+                            <option value="{{curso.idcurso}}">{{curso.nombrecurso.nombre}} <b>Inicio:</b> {{curso.fechainicio | date('d-m-Y')}}</option>
+                        {%endfor%}
+                    </select>
+                </div>
+            </div>
+
+            {{ form_rest(formUsuarioCurso) }}
+
+            <div style="text-align: right">
+                <button type="submit" class="btn btn-success btn-lg"  >
+                    <span class="glyphicon glyphicon-save"></span> Matricular</button>
+                <a type="button" class="btn btn-default btn-lg" href="{{path('fundeuis_usuarios_buscar')}}"  >
+                    <span class="glyphicon glyphicon-log-out"></span> Salir</a>
+            </div>
+        </form>
+
+    {%endif%}
     <br>
 {% endblock %}
 {% block javascripts %}

@@ -7,7 +7,7 @@
 {% endblock %}
 {% block submenuderecho %}
 
-    <a type="submit" class="btn btn-primary btn-bg" id="botonNuevoCurso" href="{{path('fundeuis_usuarios_crear')}}">
+    <a type="submit" class="btn btn-primary btn-bg" id="botonNuevoCurso" href="{{path('fundeuis_inscripcionpreicfes_cursos_crear')}}">
         <span class="glyphicon glyphicon-plus"></span> Nuevo
     </a>  
     <button type="submit" class="btn btn-success btn-bg" id="botonModificarCurso" >
@@ -52,7 +52,6 @@
                                     <label class="sr-only" for="campoPrimerApellido">Primer Apellido</label>
                                     <input type="text" class="form-control" id="campoPrimerApellido" name="campoPrimerApellido" placeholder="Primer Apellido">
                                 </div>
-
                                 <button type="submit" class="btn btn-primary btn-bg">Buscar</button>
                             </form>
                         </div>
@@ -81,10 +80,7 @@
             </div>
         </div>
     </div>
-
-
-
-    <div id="usuarios">
+    <div id="cursos">
         <table class="table table-condensed table-hover table-striped">
             <thead>
                 <tr>
@@ -92,19 +88,19 @@
 
                     </th>
                     <th>
-                        Documento Identidad
+                        Curso
                     </th>
                     <th>
-                        Nombres
+                        Fecha
                     </th>
                     <th>
-                        Apellidos
+                        Intensidad Horaria (Día)
                     </th>
                     <th>
-                        Correo Electrónico
+                        Duración en Horas
                     </th>
                     <th>
-                        ROL
+                        Horario
                     </th>
 
                     <th>
@@ -114,34 +110,28 @@
 
             </thead>
             <tbody>
-                {% for usuario in usuarios%}
+                {% for curso in cursos%}
                     <tr>
                         <td>
-                            <input type="radio" name="radioUsuario" id="radioUsuario" value="{{usuario.user.id}}">
+                            <input type="radio" name="radioCurso" id="radioCurso" value="{{curso.idcurso}}">
                         </td>
                         <td>
-                            {{ usuario.numerodocumentoidentidad }}
+                            {{ curso.nombrecurso.nombre }}
                         </td>
                         <td>
-                            {{ usuario.primernombre }}  {{ usuario.segundonombre }}
+                            <b>Desde:</b> {{ curso.fechainicio | date('d-m-Y') }} - <b>Hasta:</b> {{ curso.fechafin | date('d-m-Y') }}
                         </td>
                         <td>
-                            {{ usuario.primerapellido }}  {{ usuario.segundoapellido }}
+                            {{ curso.intensidadhoraria }}
                         </td>
                         <td>
-                            {{ usuario.user.email }}
+                            {{ curso.duracion }}
                         </td>
                         <td>
-                            {%for item in  usuario.user.roles %}
-                                {%if item == 'ROLE_ESTUDIANTEPREICFES' %}
-                                    ESTUDIENTE PREICFES
-                                {%elseif item == 'ROLE_ADMINISTRADOR' %}
-                                    ADMINISTRADOR
-                                {% endif %}
-                            {% endfor %}
+                            <b>Desde:</b>  {{curso.horainicio |date('H:m')}} - <b>Hasta:</b>  {{curso.horafin |date('H:m')}}
                         </td>                     
                         <td>
-                            <a href="{{path('fundeuis_usuarios_verestudiantepreicfes', {'id': usuario.idusuario})}}">
+                            <a href="{{path('fundeuis_inscripcionpreicfes_cursos_vista',{'id':curso.idcurso})}}">
                                 <span class="glyphicon glyphicon-eye-open"></span> Abrir
                             </a>
                         </td>

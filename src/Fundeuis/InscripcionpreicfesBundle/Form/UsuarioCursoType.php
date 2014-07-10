@@ -33,7 +33,7 @@ class UsuarioCursoType extends AbstractType {
 //                ))
 //                ->add('usuario')
                 ->add('archivo', 'file', array(
-                    'required' => false,
+                    'required' => true,
                     // 'data_class' => null,
                     'mapped' => false,
                     'label' => 'Documentos:',

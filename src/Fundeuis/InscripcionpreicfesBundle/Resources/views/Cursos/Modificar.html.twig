@@ -1,7 +1,86 @@
-{% extends "::base.html.twig" %}
+{% extends "::administrador.html.twig" %}
+{% block title %}FundeuisUsuariosBundle:Administrar:Modificar{% endblock %}
+{% block titulo %}
+    <h1>Administrar: <small>Modificar Curso</small></h1>
+{% endblock %}
+{% block submenuizquierdo %}
+{% endblock %}
+{% block submenuderecho %}
+{% endblock %}
+{% block contenido %}
+    <form style="width: 800px;" role="form" class="form-horizontal center-block" action="{{ path('fundeuis_inscripcionpreicfes_cursos_modificar', {'id':id}) }}" method="post" {{ form_enctype(formCurso) }}>
 
-{% block title %}FundeuisInscripcionpreicfesBundle:Cursos:Modificar{% endblock %}
+        {{ form_errors(formCurso) }}    
+        <div class="form-group">
+            {{ form_label(formCurso.fechainicio, null, {'label_attr': {'class': 'col-sm-3 control-label'}}) }}            
+            <div class="col-sm-8">
+                {{ form_errors(formCurso.fechainicio) }}
+                {{ form_widget(formCurso.fechainicio) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(formCurso.fechafin, null, {'label_attr': {'class': 'col-sm-3 control-label'}}) }}            
+            <div class="col-sm-8">
+                {{ form_errors(formCurso.fechafin) }}                
+                {{ form_widget(formCurso.fechafin) }}
+            </div>
+        </div>    
+        <div class="form-group">
+            {{ form_label(formCurso.duracion, null, {'label_attr': {'class': 'col-sm-3 control-label'}}) }}            
+            <div class="col-sm-8">
+                {{ form_errors(formCurso.duracion) }}                
+                {{ form_widget(formCurso.duracion) }}
+            </div>
+        </div> 
+        <div class="form-group">
+            {{ form_label(formCurso.horainicio, null, {'label_attr': {'class': 'col-sm-3 control-label'}}) }}            
+            <div class="col-sm-8">
+                {{ form_errors(formCurso.horainicio) }}                
+                {{ form_widget(formCurso.horainicio) }}
+            </div>
+        </div> 
+        <div class="form-group">
+            {{ form_label(formCurso.horafin, null, {'label_attr': {'class': 'col-sm-3 control-label'}}) }}            
+            <div class="col-sm-8">
+                {{ form_errors(formCurso.horafin) }}                
+                {{ form_widget(formCurso.horafin) }}
+            </div>
+        </div> 
+        <div class="form-group">
+            {{ form_label(formCurso.intensidadhoraria, null, {'label_attr': {'class': 'col-sm-3 control-label'}}) }}            
+            <div class="col-sm-8">
+                {{ form_errors(formCurso.intensidadhoraria) }}                
+                {{ form_widget(formCurso.intensidadhoraria) }}
+            </div>
+        </div> 
+        <div class="form-group">
+            {{ form_label(formCurso.descripcion, null, {'label_attr': {'class': 'col-sm-3 control-label'}}) }}            
+            <div class="col-sm-8">
+                {{ form_errors(formCurso.descripcion) }}                
+                {{ form_widget(formCurso.descripcion) }}
+            </div>
+        </div> 
+        <div class="form-group">
+            {{ form_label(formCurso.nombrecurso, null, {'label_attr': {'class': 'col-sm-3 control-label'}}) }}            
+            <div class="col-sm-8">
+                {{ form_errors(formCurso.nombrecurso) }}                
+                {{ form_widget(formCurso.nombrecurso) }}
+            </div>
+        </div> 
 
-{% block body %}
-<h1>Welcome to the Cursos:Modificar page</h1>
+
+
+
+        {{ form_rest(formCurso) }}
+
+        <div style="text-align: right">
+            <button type="submit" class="btn btn-primary btn-lg"  >
+                <span class="glyphicon glyphicon-save"></span> Guardar</button>
+            <a type="button" class="btn btn-default btn-lg" href="{{path('fundeuis_inscripcionpreicfes_cursos_buscar')}}"  >
+                <span class="glyphicon glyphicon-log-out"></span> Salir</a>
+        </div>
+    </form>
+    <br>
+{% endblock %}
+{% block javascripts %}
 {% endblock %}

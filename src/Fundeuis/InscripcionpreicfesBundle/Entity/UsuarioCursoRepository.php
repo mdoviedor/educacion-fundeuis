@@ -22,7 +22,7 @@ class UsuarioCursoRepository extends EntityRepository {
 
 
         return $this->getEntityManager()
-                        ->createQuery('SELECT uc FROM FundeuisInscripcionpreicfesBundle:UsuarioCurso uc WHERE uc.usuario = :usuario)
+                        ->createQuery('SELECT uc FROM FundeuisInscripcionpreicfesBundle:UsuarioCurso uc WHERE uc.usuario = :usuario')
                         ->setParameter('usuario', $usuario)
                         ->setParameter('fecha', new \DateTime($fecha))
                         ->getResult();
