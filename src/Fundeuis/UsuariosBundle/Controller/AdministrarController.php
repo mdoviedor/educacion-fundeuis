@@ -4,6 +4,7 @@ namespace Fundeuis\UsuariosBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Fundeuis\UsuariosBundle\Entity\Usuario;
+use Fundeuis\UsuariosBundle\Entity\UsuarioCurso;
 use Fundeuis\UsuariosBundle\Entity\Ciudad;
 use Fundeuis\UsuariosBundle\Entity\Departamento;
 use Fundeuis\UsuariosBundle\Entity\Estudiantepreicfes;
@@ -266,10 +267,12 @@ class AdministrarController extends Controller {
     }
 
     public function VerestudiantepreicfesAction($id) {
-        $estudiantePreIcfes = new Estudiantepreicfes();
         $em = $this->getDoctrine()->getManager();
+        $estudiantePreIcfes = new Estudiantepreicfes();
+        $usuarioCurso = new UsuarioCurso();
+        $usuarioCurso = $em->getRepository('FundeuisUsuariosBundle:UsuarioCurso')->findBy(array('usuario' => $id));
         $estudiantePreIcfes = $em->getRepository('FundeuisUsuariosBundle:Estudiantepreicfes')->findOneBy(array('usuario' => $id));
-        return $this->render('FundeuisUsuariosBundle:Administrar:Verestudiantepreicfes.html.twig', array('id' => $id, 'estudiante' => $estudiantePreIcfes));
+        return $this->render('FundeuisUsuariosBundle:Administrar:Verestudiantepreicfes.html.twig', array('id' => $id, 'estudiante' => $estudiantePreIcfes, 'cursos' => $usuarioCurso));
     }
 
 }

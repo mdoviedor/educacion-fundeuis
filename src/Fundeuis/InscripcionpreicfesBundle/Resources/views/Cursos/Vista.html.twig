@@ -56,7 +56,7 @@
         <div class="col-md-12" style="background: #f8f8f8; border: 1px solid #FFFFFF;"><h4>Estudiantes Matriculados</h4></div>           
     </div>
     {%if matriculados%}
-        <table class="table table-condensed table-hover table-striped">
+        <table class="table table-condensed table-hover table-striped table-responsive">
             <thead>
                 <tr>     
                     <th>
@@ -103,7 +103,7 @@
                             {{matriculado.usuario.primerapellido | upper}}  {{matriculado.usuario.segundoapellido | upper}}
                         </td>                  
                         <td>
-                            <a href="{{path('fundeuis_usuarios_verestudiantepreicfes', {'id': matriculado.usuario.idusuario})}}">
+                            <a   onClick='return ConfirmarAccion();' href="{{path('fundeuis_usuarios_verestudiantepreicfes', {'id': matriculado.usuario.idusuario})}}">
                                 <span class="glyphicon glyphicon-eye-open"></span> Abrir
                             </a>
                         </td>    
@@ -118,7 +118,7 @@
                             </a>
                         </td>
                         <td>
-                            <a href="{{ asset(matriculado.rutaarchivo~matriculado.nombrearchivo~'.zip') }}">
+                            <a  onClick='return ConfirmarAccion();' href="{{ asset(matriculado.rutaarchivo~matriculado.nombrearchivo~'.zip') }}">
                                 <span class="glyphicon glyphicon-cloud-download"></span> Descargar Adjuntos
                             </a>
                         </td>
@@ -138,7 +138,7 @@
     </div>
 
     {%if prematriculados%}
-        <table class="table table-condensed table-hover table-striped">
+        <table class="table table-condensed table-hover table-striped table-responsive">
             <thead>
                 <tr>     
                     <th>
@@ -185,7 +185,7 @@
                             {{prematriculado.usuario.primerapellido | upper}}  {{prematriculado.usuario.segundoapellido | upper}}
                         </td>                  
                         <td>
-                            <a href="{{path('fundeuis_usuarios_verestudiantepreicfes', {'id': prematriculado.usuario.idusuario})}}">
+                            <a onClick='return ConfirmarAccion();' href="{{path('fundeuis_usuarios_verestudiantepreicfes', {'id': prematriculado.usuario.idusuario})}}">
                                 <span class="glyphicon glyphicon-eye-open"></span> Abrir
                             </a>
                         </td>    
@@ -200,7 +200,7 @@
                             </a>
                         </td>
                         <td>
-                            <a href="{{ asset(prematriculado.rutaarchivo~prematriculado.nombrearchivo~'.zip') }}">
+                            <a onClick='return ConfirmarAccion();' href="{{ asset(prematriculado.rutaarchivo~prematriculado.nombrearchivo~'.zip') }}">
                                 <span class="glyphicon glyphicon-cloud-download"></span> Descargar Adjuntos
                             </a>
                         </td>
