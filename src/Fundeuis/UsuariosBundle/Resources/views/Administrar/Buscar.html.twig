@@ -117,43 +117,43 @@
 
             </thead>
             <tbody>
-                {% for usuario in usuarios%}
-                    <tr>
-                        <td>
-                            <input type="radio" name="radioUsuario" id="radioUsuario" value="{{usuario.user.id}}">
-                        </td>
-                        <td>
-                            {{ usuario.numerodocumentoidentidad }}
-                        </td>
-                        <td>
-                            {{ usuario.primernombre }}  {{ usuario.segundonombre }}
-                        </td>
-                        <td>
-                            {{ usuario.primerapellido }}  {{ usuario.segundoapellido }}
-                        </td>
-                        <td>
-                            {{ usuario.user.email }}
-                        </td>
-                        <td>
-                            {%for item in  usuario.user.roles %}
-                                {%if item == 'ROLE_ESTUDIANTEPREICFES' %}
-                                    ESTUDIENTE PREICFES
-                                {%elseif item == 'ROLE_ADMINISTRADOR' %}
-                                    ADMINISTRADOR
-                                {% endif %}
-                            {% endfor %}
-                        </td>                     
-                        <td>
-                            <a href="{{path('fundeuis_usuarios_verestudiantepreicfes', {'id': usuario.idusuario})}}">
-                                <span class="glyphicon glyphicon-eye-open"></span> Abrir
-                            </a>
-                        </td>
-                        <td>
-                            <a href="{{path('fundeuis_inscripcionpreicfes_cursos__matricular', {'id': usuario.idusuario})}}">
-                                <span class="glyphicon glyphicon-cloud-upload"></span> Matricular
-                            </a>
-                        </td>
-                    </tr>
+                {% for usuario in usuarios%}                  
+                        <tr>
+                            <td>
+                                <input type="radio" name="radioUsuario" id="radioUsuario" value="{{usuario.user.id}}">
+                            </td>
+                            <td>
+                                {{ usuario.numerodocumentoidentidad }}
+                            </td>
+                            <td>
+                                {{ usuario.primernombre }}  {{ usuario.segundonombre }}
+                            </td>
+                            <td>
+                                {{ usuario.primerapellido }}  {{ usuario.segundoapellido }}
+                            </td>
+                            <td>
+                                {{ usuario.user.email }}
+                            </td>
+                            <td>
+                                {%for item in  usuario.user.roles %}
+                                    {%if item == 'ROLE_ESTUDIANTEPREICFES' %}
+                                        ESTUDIENTE PREICFES
+                                    {%elseif item == 'ROLE_ADMINISTRADOR' %}
+                                        ADMINISTRADOR
+                                    {% endif %}
+                                {% endfor %}
+                            </td>                     
+                            <td>
+                                <a href="{{path('fundeuis_usuarios_verestudiantepreicfes', {'id': usuario.idusuario})}}">
+                                    <span class="glyphicon glyphicon-eye-open"></span> Abrir
+                                </a>
+                            </td>
+                            <td>
+                                <a href="{{path('fundeuis_inscripcionpreicfes_cursos__matricular', {'id': usuario.idusuario})}}">
+                                    <span class="glyphicon glyphicon-cloud-upload"></span> Matricular
+                                </a>
+                            </td>
+                        </tr>                
                 {% endfor %}
             </tbody>
         </table>

@@ -27,7 +27,7 @@ class MatriculaController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $usuario = $em->getRepository('FundeuisInscripcionpreicfesBundle:Usuario')->find($id);
         $formUsuarioCurso = $this->createForm(new UsuarioCursoType(), $usuarioCurso);
-        $curso = $em->getRepository('FundeuisInscripcionpreicfesBundle:Curso')->buscarCursosAño();
+        $curso = $em->getRepository('FundeuisInscripcionpreicfesBundle:Curso')->buscarCursosAno();
 
 
         if ($request->getMethod() == 'POST') {

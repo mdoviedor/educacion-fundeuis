@@ -1,21 +1,18 @@
 {% extends "::administrador.html.twig" %}
 {% block title %}Fundeuis: Administrador{% endblock %}
 {% block titulo %}
-    <h1>Administrar Cursos: <small>Buscar</small></h1>
+    <h1>Administrar Usuarios: <small>Buscar</small></h1>
 {% endblock %}
 {% block submenuizquierdo %}
 {% endblock %}
 {% block submenuderecho %}
 
-    <a type="submit" class="btn btn-primary btn-bg" id="botonNuevoCurso" href="{{path('fundeuis_inscripcionpreicfes_cursos_crear')}}">
-        <span class="glyphicon glyphicon-plus"></span> Nuevo
+    <a type="submit" class="btn btn-primary btn-bg" id="botonNuevoUsuarioEstudiantePreicfes" href="{{path('fundeuis_usuarios_crear')}}">
+        <span class="glyphicon glyphicon-plus"></span> Nuevo Estudiante Preicfes
     </a>  
-    <button type="submit" class="btn btn-success btn-bg" id="botonModificarCurso" >
-        <span class="glyphicon glyphicon-refresh"></span>Modificar
-    </button>
-    <button type="submit" class="btn btn-danger btn-bg" id="botonEliminarCurso">
-        <span class="glyphicon glyphicon-trash"></span> Eliminar
-    </button>
+    <a type="submit" class="btn btn-primary btn-bg" id="botonNuevoUsuarioAdministrador" href="{{path('fundeuis_usuarios_crearadministrador')}}">
+        <span class="glyphicon glyphicon-plus"></span> Nuevo Administrador
+    </a>   
     <a type="submit" class="btn btn-default btn-bg" id="botonSalir" href="#">
         <span class="glyphicon glyphicon-log-out"></span> Salir
     </a>
@@ -25,123 +22,89 @@
 {% endblock %}
 {% block contenido %}
 
-    <div class="panel-group" id="accordion">
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-                <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                        <b> De click aquí para deplegar los filtros de busqueda</b>
-                    </a>
-                </h4>
-            </div>
-            <div id="collapseOne" class="panel-collapse collapse">
-                <div class="panel-body">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading"><b>Parametros del curso</b></div>
-                        <div class="panel-body">
-                            <form action="" class="form-inline" name="formularioBuscarCurso" id="formularioBuscarCurso" role="form">
-                                <div class="form-group">
-                                    <label class="sr-only" for="listaNombreCurso">Curso</label>
-                                    <select id="listaNombreCurso" name="listaNombreCurso" class="form-control">
-                                        <option>SELECCIONAR</option>
-                                        {%for item in nombrecurso %}
-                                            <option value="{{item.idnombrecurso}}">{{item.nombre}}</option>
-                                        {% endfor %}
-                                    </select>
-                                </div> ó 
-                                <div class="form-group">
-                                    <label class="sr-only" for="campoAno">Año</label>
-                                    <input type="text" class="form-control" id="campoAno" name="campoAno" placeholder="Ej: 2014">
-                                </div>              
-                                <button type="submit"  class="btn btn-primary btn-bg">Buscar</button>
-                            </form>
-                        </div>
-                    </div>                            
-                </div>
-            </div>
-        </div>
-    </div>
-    <div id="cursos">
-        <table class="table table-condensed table-hover table-striped">
-            <thead>
-                <tr>
-                    <th>
-
-                    </th>
-                    <th>
-                        Curso
-                    </th>
-                    <th>
-                        Fecha
-                    </th>
-                    <th>
-                        Intensidad Horaria (Día)
-                    </th>
-                    <th>
-                        Duración en Horas
-                    </th>
-                    <th>
-                        Horario
-                    </th>
-
-                    <th>
-
-                    </th>
-                </tr>
-
-            </thead>
-            <tbody>
-                {% for curso in cursos%}
+    <div class="table-responsive">
+        <div id="usuarios">
+            <table class="table table-condensed table-hover table-striped">
+                <thead>
                     <tr>
-                        <td>
-                            <input type="radio" name="radioCurso" id="radioCurso" value="{{curso.idcurso}}">
-                        </td>
-                        <td>
-                            {{ curso.nombrecurso.nombre }}
-                        </td>
-                        <td>
-                            <b>Desde:</b> {{ curso.fechainicio | date('d-m-Y') }} - <b>Hasta:</b> {{ curso.fechafin | date('d-m-Y') }}
-                        </td>
-                        <td>
-                            {{ curso.intensidadhoraria }}
-                        </td>
-                        <td>
-                            {{ curso.duracion }}
-                        </td>
-                        <td>
-                            <b>Desde:</b>  {{curso.horainicio |date('H:m')}} - <b>Hasta:</b>  {{curso.horafin |date('H:m')}}
-                        </td>                     
-                        <td>
-                            <a href="{{path('fundeuis_inscripcionpreicfes_cursos_vista',{'id':curso.idcurso})}}">
-                                <span class="glyphicon glyphicon-eye-open"></span> Abrir
-                            </a>
-                        </td>
+                        <th>
+
+                        </th>
+                        <th>
+                            Documento Identidad
+                        </th>
+                        <th>
+                            Nombres
+                        </th>
+                        <th>
+                            Apellidos
+                        </th>
+                        <th>
+                            Correo Electrónico
+                        </th>
+                        <th>
+
+                        </th>
+                        <th>
+
+                        </th>
+                        <th>
+
+                        </th>
+
+                        <th>
+
+                        </th>
                     </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
 
-    <div class="row">
-        <div class="col-md-5"></div>
-        <div class="col-md-2">
+                </thead>
+                <tbody>
+                    {% for usuario in usuarios%}
+                        {%for item in  usuario.user.roles %}
+                            {%if item == 'ROLE_ADMINISTRADOR'%}
+                                <tr>
+                                    <td>
+                                        <input type="radio" name="radioUsuario" id="radioUsuario" value="{{usuario.user.id}}">
+                                    </td>
+                                    <td>
+                                        {{ usuario.numerodocumentoidentidad }}
+                                    </td>
+                                    <td>
+                                        {{ usuario.primernombre }}  {{ usuario.segundonombre }}
+                                    </td>
+                                    <td>
+                                        {{ usuario.primerapellido }}  {{ usuario.segundoapellido }}
+                                    </td>
+                                    <td>
+                                        {{ usuario.user.email }}
+                                    </td>
+                                    <td>
 
-            <select class="center-block form-control" id="listaTamano" name="listaTamano">  
-                <option value="{{limite}}">{{limite}}</option>
-                <option value="5">5</option>
-                <option value="10">10</option>
-                <option value="20">20</option>
-                <option value="30">30</option>
-                <option value="60">60</option>
-                <option value="90">90</option>
-                <option value="120">120</option>
-                <option value="Todos">Todos</option>                        
-            </select>
+                                    </td>  
+                                    <td>
+                                        <a href="{{path('fundeuis_inscripcionpreicfes_cursos__matricular', {'id': usuario.idusuario})}}">
+                                            <span class="glyphicon glyphicon-repeat"></span> Modificar
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="{{path('fundeuis_inscripcionpreicfes_cursos__matricular', {'id': usuario.idusuario})}}">
+                                            <span class="glyphicon glyphicon-trash"></span> Eliminar
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="{{path('fundeuis_usuarios_verestudiantepreicfes', {'id': usuario.idusuario})}}">
+                                            <span class="glyphicon glyphicon-eye-open"></span> Abrir
+                                        </a>
+                                    </td>
+
+                                </tr>
+                            {% endif %} 
+                        {% endfor %}
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
-        <div class="col-md-5"></div>
     </div>
-
-
 
 
 {% endblock %}
@@ -357,4 +320,5 @@
 
     </script>
 {% endblock %}
+
 

@@ -68,7 +68,16 @@ class AdministrarController extends Controller {
                 $em->persist($usuario);
                 $em->flush($usuario);
 
+                $this->get('session')->getFlashBag()->add(//Mensaje flash. Notificación de exito de la operación.
+                        'notice', 'La acción se ha realizado con exito.'
+                );
+
                 return $this->redirect($this->generateURL('fundeuis_usuarios_crearestudiantepreicfes', array('id' => $username)));
+            } else {
+
+                $this->get('session')->getFlashBag()->add(//Mensaje flash. Notificación de exito de la operación.
+                        'error', 'La acción no se ha realizado. Intentelo de nuevo.'
+                );
             }
         }
         return $this->render('FundeuisUsuariosBundle:Administrar:Crear.html.twig', array('formUsuario' => $formUsuario->createView(), 'departamentos' => $departamento));
@@ -119,8 +128,17 @@ class AdministrarController extends Controller {
 
                 $em->persist($estudiantePreIcfes);
                 $em->flush($estudiantePreIcfes);
+
+                $this->get('session')->getFlashBag()->add(//Mensaje flash. Notificación de exito de la operación.
+                        'notice', 'La acción se ha realizado con exito.'
+                );
+                return $this->redirect($this->generateURL('fundeuis_usuarios_buscar'));
+            } else {
+
+                $this->get('session')->getFlashBag()->add(//Mensaje flash. Notificación de exito de la operación.
+                        'error', 'La acción no se ha realizado. Intentelo de nuevo.'
+                );
             }
-            return $this->redirect($this->generateURL('fundeuis_usuarios_buscar'));
         }
         return $this->render('FundeuisUsuariosBundle:Administrar:Crearestudiantepreicfes.html.twig', array('departamentos' => $departamento, 'id' => $id, 'formEstudiantePreIcfes' => $formEstudiantesPreIcfes->createView()));
     }
@@ -150,7 +168,7 @@ class AdministrarController extends Controller {
                 $redimencionarImagen = new RedimencionarImagen();
                 $estudiantePreIcfes = new Estudiantepreicfes();
 
-                $usuario = $em->getRepository('FundeuisUsuariosBundle:Usuario')->findOneBy(array('numerodocumentoidentidad' => $user->getUsername()));
+                $usuario = $em->getRepository('FundeuisUsuariosBundle:Usuario')->findOneBy(array('user' => $id));
                 $formUsuario = $this->createForm(new UsuarioType(), $usuario);
 
 
@@ -162,17 +180,11 @@ class AdministrarController extends Controller {
                         $username = $formUsuario->get('numerodocumentoidentidad')->getData();
                         $c = $request->request->get('listaCiudad');
 
-
-                        //$user = new User();
-//                        $user->setEnabled(true);
-
                         $user->setEmail($email);
 
-//                        if ($username) {
-//                            $user->setUsername($username);
-//                            $user->setPlainPassword($username);
-//                        }
-                        // $user->r('ROLE_ESTUDIANTEPREICFES');
+                        if ($username) {
+                            $user->setUsername($username);
+                        }
 
                         $userManager->updateUser($user); //Actualizacion del contenido del manejador
                         $this->getDoctrine()->getManager()->flush();
@@ -184,7 +196,7 @@ class AdministrarController extends Controller {
                         $em->persist($usuario);
                         $em->flush($usuario);
 
-                        return $this->redirect($this->generateURL('fundeuis_usuarios_modificarestudiantepreicfes', array('id' => $username)));
+                        return $this->redirect($this->generateURL('fundeuis_usuarios_modificarestudiantepreicfes', array('id' => $usuario->getIdusuario())));
                     }
                 }
                 return $this->render('FundeuisUsuariosBundle:Administrar:Modificar.html.twig', array('usuario' => $usuario, 'departamentos' => $departamento, 'id' => $id, 'formUsuario' => $formUsuario->createView()));
@@ -206,7 +218,7 @@ class AdministrarController extends Controller {
         $departamento = $em->getRepository('FundeuisUsuariosBundle:Departamento')->findAll();
         $redimencionarImagen = new RedimencionarImagen();
         $estudiantePreIcfes = new Estudiantepreicfes();
-        $usuario = $em->getRepository('FundeuisUsuariosBundle:Usuario')->findOneBy(array('numerodocumentoidentidad' => $id));
+        $usuario = $em->getRepository('FundeuisUsuariosBundle:Usuario')->findOneBy(array('idusuario' => $id));
         $estudiantePreIcfes = $em->getRepository('FundeuisUsuariosBundle:Estudiantepreicfes')->findOneBy(array('usuario' => $usuario->getIdusuario()));
         $formEstudiantesPreIcfes = $this->createForm(new EstudiantepreicfesType(), $estudiantePreIcfes);
         echo $usuario->getIdusuario();
@@ -273,6 +285,87 @@ class AdministrarController extends Controller {
         $usuarioCurso = $em->getRepository('FundeuisUsuariosBundle:UsuarioCurso')->findBy(array('usuario' => $id));
         $estudiantePreIcfes = $em->getRepository('FundeuisUsuariosBundle:Estudiantepreicfes')->findOneBy(array('usuario' => $id));
         return $this->render('FundeuisUsuariosBundle:Administrar:Verestudiantepreicfes.html.twig', array('id' => $id, 'estudiante' => $estudiantePreIcfes, 'cursos' => $usuarioCurso));
+    }
+
+    /*
+     * **************
+     * ADMINISTRADOR
+     * **************
+     */
+
+    public function CrearadministradorAction(Request $request) {
+        $em = $this->getDoctrine()->getManager();
+
+        $userManager = $this->get('fos_user.user_manager'); // Instancia del manejador del bundle FOSUser
+        $u = $userManager->createUser();
+        $usuario = new Usuario();
+        $ciudad = new Ciudad();
+        $departamento = new Departamento();
+        $departamento = $em->getRepository('FundeuisUsuariosBundle:Departamento')->findAll();
+
+
+        $redimencionarImagen = new RedimencionarImagen();
+        $estudiantePreIcfes = new Estudiantepreicfes();
+
+        $formUsuario = $this->createForm(new UsuarioType(), $usuario);
+
+
+        if ($request->getMethod() == 'POST') {
+            $formUsuario->handleRequest($request);
+            $c = $request->request->get('listaCiudad');
+            if ($formUsuario->isValid() && $c) {
+                $email = $formUsuario->get('correoElectronico')->getData();
+                $username = $formUsuario->get('numerodocumentoidentidad')->getData();
+                $ciudad = $em->getRepository('FundeuisUsuariosBundle:Ciudad')->find($c);
+
+                $user = new User();
+                $user->setEmail($email);
+                $user->setUsername($username);
+                $user->setEnabled(true);
+                $user->setPlainPassword($username);
+                $user->r('ROLE_ADMINISTRADOR');
+
+                $userManager->updateUser($user); //Actualizacion del contenido del manejador
+                $this->getDoctrine()->getManager()->flush();
+
+
+                $usr = new User();
+                $usr = $em->getRepository('FundeuisUsuariosBundle:User')->findBy(array('username' => $username));
+                $usuario->setUser($usr[0]);
+                $usuario->setCiudad($ciudad);
+
+                $em->persist($usuario);
+                $em->flush($usuario);
+
+                $this->get('session')->getFlashBag()->add(//Mensaje flash. Notificación de exito de la operación.
+                        'notice', 'La acción se ha realizado con exito.'
+                );
+
+
+                return $this->redirect($this->generateURL('fundeuis_usuarios_buscaradministrador'));
+            } else {
+
+                $this->get('session')->getFlashBag()->add(//Mensaje flash. Notificación de exito de la operación.
+                        'error', 'La acción no se ha realizado. Intentelo de nuevo.'
+                );
+            }
+        }
+        return $this->render('FundeuisUsuariosBundle:Administrar:Crearadministrador.html.twig', array('formUsuario' => $formUsuario->createView(), 'departamentos' => $departamento));
+    }
+
+    public function ModificaradministradorAction(Request $request) {
+        $em = $this->getDoctrine()->getManager();
+    }
+
+    public function EliminaradministradorAction($id) {
+        $em = $this->getDoctrine()->getManager();
+    }
+
+    public function BuscaradministradorAction() {
+        $em = $this->getDoctrine()->getManager();
+        $usuario = new Usuario();
+        $usuario = $em->getRepository('FundeuisUsuariosBundle:Usuario')->findBy(array(), array('idusuario' => 'DESC'));
+        return $this->render('FundeuisUsuariosBundle:Administrar:Buscaradministrador.html.twig', array('usuarios' => $usuario));
     }
 
 }

@@ -12,7 +12,7 @@ use Doctrine\ORM\EntityRepository;
  */
 class CursoRepository extends EntityRepository {
 
-    public function buscarCursosAñoActual() {
+    public function buscarCursosAnoActual() {
         $year = \date('Y');
 
         return $this->getEntityManager()

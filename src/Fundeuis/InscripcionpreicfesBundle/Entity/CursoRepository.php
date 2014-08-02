@@ -15,7 +15,7 @@ class CursoRepository extends EntityRepository {
      * Buscar cursos del año actual y año anterior. 
      */
 
-    public function buscarCursosAño() {
+    public function buscarCursosAno() {
         $year = \date('Y');
         $ayear = $year - 1;
         $aayear = $year - 2;
@@ -25,6 +25,39 @@ class CursoRepository extends EntityRepository {
                         ->setParameter('fecha', '%' . $year . '%')
                         ->setParameter('afecha', '%' . $ayear . '%')
                         ->setParameter('aafecha', '%' . $aayear . '%')
+                        ->getResult();
+    }
+
+    /*
+     * Buscar cursos por el nombre
+     * Recibe el id, correspondiente al idnombrecurso, correspondiente
+     * al modelo Nombrecurso.
+     */
+
+    public function buscarCursosPorNombre($id, $limite) {
+
+        return $this->getEntityManager()
+                        ->createQuery('SELECT c FROM FundeuisInscripcionpreicfesBundle:Curso c JOIN FundeuisInscripcionpreicfesBundle:Nombrecurso nc WITH c.nombrecurso = nc.idnombrecurso' .
+                                ' AND c.nombrecurso = :id' .
+                                'ORDER BY c.fechainicio DESC')
+                        ->setParameter('id', $id)
+                        ->setMaxResults($limite)//maneja el numero de resultados que se visualizaran 
+                        ->getResult();
+    }
+
+    /*
+     * Buscar cursos por el ano
+     * Recibe el ano del curso
+     */
+
+    public function buscarCursosPorAno($ano, $limite) {
+
+        return $this->getEntityManager()
+                        ->createQuery('SELECT c FROM FundeuisInscripcionpreicfesBundle:Curso c WHERE c.fechainicio LIKE :ano' .
+                                ' AND c.nombrecurso = :id' .
+                                'ORDER BY c.fechainicio DESC')
+                        ->setParameter('ano', '%' . $ano . '%')
+                        ->setMaxResults($limite)//maneja el numero de resultados que se visualizaran 
                         ->getResult();
     }
 

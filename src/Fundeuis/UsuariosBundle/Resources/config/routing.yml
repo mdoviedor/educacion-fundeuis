@@ -34,3 +34,17 @@ fundeuis_usuarios_buscar:
 fundeuis_usuarios_verestudiantepreicfes:
     pattern: /administrador/administrarUsuarios/verestudiantepreicfes/{id}
     defaults: { _controller: FundeuisUsuariosBundle:Administrar:Verestudiantepreicfes }
+    
+#######################################
+#######################################
+##ADMINISTRADOR########################
+#######################################
+#######################################
+
+fundeuis_usuarios_crearadministrador:
+    pattern: /administrador/administrarAdministrador/crearAdministrador
+    defaults: { _controller: FundeuisUsuariosBundle:Administrar:Crearadministrador }
+    
+fundeuis_usuarios_buscaradministrador:
+    pattern: /administrador/administrarAdministrador
+    defaults: { _controller: FundeuisUsuariosBundle:Administrar:Buscaradministrador }

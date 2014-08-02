@@ -1,0 +1,245 @@
+{% extends "::administrador.html.twig" %}
+{% block title %}Fundeuis{% endblock %}
+{% block titulo %}
+    <h1>Administrar Usuarios: <small>Crear Administrador.</small></h1>
+{% endblock %}
+{% block submenuizquierdo %}
+{% endblock %}
+{% block submenuderecho %}
+{% endblock %}
+{% block contenido %}
+    <form style="width: 800px;" role="form" class="form-horizontal center-block" action="{{ path('fundeuis_usuarios_crearadministrador') }}" method="post" {{ form_enctype(formUsuario) }} >
+
+        {{ form_errors(formUsuario) }}     
+        <div class="form-group">
+            {{ form_label(formUsuario.numerodocumentoidentidad.first, null, {'label_attr': {'class': 'col-sm-3 control-label'}}) }}            
+            <div class="col-sm-8">
+                {{ form_errors(formUsuario.numerodocumentoidentidad.first) }}
+                {{ form_widget(formUsuario.numerodocumentoidentidad.first) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(formUsuario.numerodocumentoidentidad.second, null, {'label_attr': {'class': 'col-sm-3 control-label'}}) }}            
+            <div class="col-sm-8">
+                {{ form_errors(formUsuario.numerodocumentoidentidad.second) }}                
+                {{ form_widget(formUsuario.numerodocumentoidentidad.second) }}
+            </div>
+        </div> 
+        <div class="form-group">
+            {{ form_label(formUsuario.correoElectronico.first, null, {'label_attr': {'class': 'col-sm-3 control-label'}}) }}            
+            <div class="col-sm-8">
+                {{ form_errors(formUsuario.correoElectronico.first) }}
+                {{ form_widget(formUsuario.correoElectronico.first) }}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form_label(formUsuario.correoElectronico.second, null, {'label_attr': {'class': 'col-sm-3 control-label'}}) }}            
+            <div class="col-sm-8">
+                {{ form_errors(formUsuario.correoElectronico.second) }}                
+                {{ form_widget(formUsuario.correoElectronico.second) }}
+            </div>
+        </div> 
+        <div class="form-group">
+            {{ form_label(formUsuario.primernombre, null, {'label_attr': {'class': 'col-sm-3 control-label'}}) }}            
+            <div class="col-sm-8">
+                {{ form_errors(formUsuario.primernombre) }}                
+                {{ form_widget(formUsuario.primernombre) }}
+            </div>
+        </div> 
+        <div class="form-group">
+            {{ form_label(formUsuario.segundonombre, null, {'label_attr': {'class': 'col-sm-3 control-label'}}) }}            
+            <div class="col-sm-8">
+                {{ form_errors(formUsuario.segundonombre) }}                
+                {{ form_widget(formUsuario.segundonombre) }}
+            </div>
+        </div> 
+        <div class="form-group">
+            {{ form_label(formUsuario.primerapellido, null, {'label_attr': {'class': 'col-sm-3 control-label'}}) }}            
+            <div class="col-sm-8">
+                {{ form_errors(formUsuario.primerapellido) }}                
+                {{ form_widget(formUsuario.primerapellido) }}
+            </div>
+        </div> 
+        <div class="form-group">
+            {{ form_label(formUsuario.segundoapellido, null, {'label_attr': {'class': 'col-sm-3 control-label'}}) }}            
+            <div class="col-sm-8">
+                {{ form_errors(formUsuario.segundoapellido) }}                
+                {{ form_widget(formUsuario.segundoapellido) }}
+            </div>
+        </div> 
+        <div class="form-group">
+            {{ form_label(formUsuario.telefonofijo, null, {'label_attr': {'class': 'col-sm-3 control-label'}}) }}            
+            <div class="col-sm-8">
+                {{ form_errors(formUsuario.telefonofijo) }}                
+                {{ form_widget(formUsuario.telefonofijo) }}
+            </div>
+        </div> 
+        <div class="form-group">
+            {{ form_label(formUsuario.telefonocelular, null, {'label_attr': {'class': 'col-sm-3 control-label'}}) }}            
+            <div class="col-sm-8">
+                {{ form_errors(formUsuario.telefonocelular) }}                
+                {{ form_widget(formUsuario.telefonocelular) }}
+            </div>
+        </div> 
+        <div class="form-group">
+            {{ form_label(formUsuario.tipodocumentoidentidad, null, {'label_attr': {'class': 'col-sm-3 control-label'}}) }}            
+            <div class="col-sm-8">
+                {{ form_errors(formUsuario.tipodocumentoidentidad) }}                
+                {{ form_widget(formUsuario.tipodocumentoidentidad) }}
+            </div>
+        </div> 
+        <label>Ciudad de residencia</label>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">Departamento:</label>
+            <div class="col-sm-8">
+                <select id="departamentoCiudad" name="departamentoCiudad" class="form-control" required="">
+                    <option value="">SELECCIONAR</option>
+                    {% for departamento in departamentos %}
+                        <option value="{{departamento.iddepartamento}}">{{departamento.nombre}}</option>
+                    {% endfor %}
+                </select>
+                <p class="help-block">Seleccione el departamento al que pertenece su ciudad de residencia. </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">Ciudad:</label>
+            <div class="col-sm-8">
+                <div id="respuestaDepartamentoCiudad">
+
+                </div>
+            </div>
+        </div> 
+        {{ form_rest(formUsuario) }}
+        <div style="text-align: right">
+            <button type="submit" class="btn btn-success btn-lg"  >
+                <span class="glyphicon glyphicon-save"></span>Guardar</button>
+            <a type="button" class="btn btn-default btn-lg" href="{{path('fundeuis_usuarios_buscaradministrador')}}"  >
+                <span class="glyphicon glyphicon-log-out"></span> Salir</a>
+        </div>
+    </form>
+    <br>
+{% endblock %}
+{% block javascripts %}
+
+    <script type="text/javascript">
+        var x;
+        x = $(document);
+        x.ready(inicializarEventos);
+
+        function inicializarEventos() {
+
+            var slDepartamentoCiudad;
+            slDepartamentoCiudad = $('#departamentoCiudad');
+            slDepartamentoCiudad.change(buscarCiudadDepartamento);
+
+            var slDepartamentoColegio;
+            slDepartamentoColegio = $('#departamentoColegio');
+            slDepartamentoColegio.change(buscarCiudadColegio);
+
+            var slCiudadColegio;
+            slCiudadColegio = $('#ciudadColegio');
+            slCiudadColegio.change(buscarColegio);
+
+            var slDepartamentoUniversidad;
+            slDepartamentoUniversidad = $('#departamentoUniversidad');
+            slDepartamentoUniversidad.change(buscarCiudadUniversidad);
+
+            var slCiudadUniversidad;
+            slCiudadUniversidad = $('#ciudadUniversidad');
+            slCiudadUniversidad.change(buscarUniversidad);
+
+
+        }
+        {# 
+            Buscar la ciudad de origen a partir del departamento seleccionado 
+        #}
+            function buscarCiudadDepartamento() {
+
+                var slDepartamentoCiudad;
+                slDepartamentoCiudad = $('#departamentoCiudad').val();
+                var url;
+                url = "{{ path('fundeuis_frontal_busquedaGlobal_buscarciudad', {'departamento': 'text', 'funcion':'listaCiudad'}) }}";
+                url = url.replace("text", slDepartamentoCiudad);
+
+                $('#respuestaDepartamentoCiudad').load(url);
+
+            }
+
+        {# 
+           Buscar la ciudad donde se encuentra el colegio del que se egreso. Se busca a partir del departamento
+        #}
+
+            function buscarCiudadColegio() {
+                var slDepartamentoColegio;
+                slDepartamentoColegio = $('#departamentoColegio').val();
+                var url;
+                url = "{{ path('fundeuis_frontal_busquedaGlobal_buscarciudad', {'departamento': 'text', 'funcion':'ciudadColegio'}) }}";
+                url = url.replace("text", slDepartamentoColegio);
+                $('#respuestaCiudadColegio').load(url);
+                setTimeout(function() {
+                    recargarEventos()
+                }, 2000);
+
+            }
+
+            function recargarEventos() {
+                x = $(document);
+                x.ready(inicializarEventos);
+            }
+
+        {#
+            Buscar el colegio del cual se egreso a partir de la ciudad.
+        #}
+            function buscarColegio() {
+
+                var slCiudadColegio;
+                slCiudadColegio = $('#ciudadColegio').val();
+
+                var url;
+                url = "{{ path('fundeuis_frontal_busquedaGlobal__buscarcolegio', {'ciudad': 'text'}) }}";
+                url = url.replace("text", slCiudadColegio);
+
+                $('#respuestaColegio').load(url);
+            }
+
+
+            /*
+             * 
+             * 
+             */
+        {# 
+     Buscar la ciudad donde se encuentra el colegio del que se egreso. Se busca a partir del departamento
+  #}
+
+      function buscarCiudadUniversidad() {
+          var slDepartamentoUniversidad;
+          slDepartamentoUniversidad = $('#departamentoUniversidad').val();
+          var url;
+          url = "{{ path('fundeuis_frontal_busquedaGlobal_buscarciudad', {'departamento': 'text', 'funcion':'ciudadUniversidad'}) }}";
+          url = url.replace("text", slDepartamentoUniversidad);
+          $('#respuestaCiudadUniversidad').load(url);
+          setTimeout(function() {
+              recargarEventos()
+          }, 2000);
+
+      }
+
+
+        {#
+            Buscar el colegio del cual se egreso a partir de la ciudad.
+        #}
+            function buscarUniversidad() {
+
+                var slCiudadUniversidad;
+                slCiudadUniversidad = $('#ciudadUniversidad').val();
+
+                var url;
+                url = "{{ path('fundeuis_frontal_busquedaGlobal__buscaruniversidad', {'ciudad': 'text'}) }}";
+                url = url.replace("text", slCiudadUniversidad);
+
+                $('#respuestaUniversidad').load(url);
+            }
+    </script>
+
+{% endblock %}
+

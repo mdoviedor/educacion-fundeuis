@@ -5,6 +5,7 @@ namespace Fundeuis\InscripcionpreicfesBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Fundeuis\InscripcionpreicfesBundle\Entity\Curso;
 use Fundeuis\InscripcionpreicfesBundle\Entity\UsuarioCurso;
+use Fundeuis\InscripcionpreicfesBundle\Entity\Nombrecurso;
 use Fundeuis\InscripcionpreicfesBundle\Form\CursoType;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -28,9 +29,11 @@ class CursosController extends Controller {
 
     public function BuscarAction($parametro, $limite) {
         $curso = new Curso();
+        $nombreCurso = new Nombrecurso();
         $em = $this->getDoctrine()->getManager();
         $curso = $em->getRepository('FundeuisInscripcionpreicfesBundle:Curso')->findBy(array(), array('idcurso' => 'DESC'), $limite);
-        return $this->render('FundeuisInscripcionpreicfesBundle:Cursos:Buscar.html.twig', array('cursos' => $curso, 'limite' => $limite));
+        $nombreCurso = $em->getRepository('FundeuisInscripcionpreicfesBundle:Nombrecurso')->findAll();
+        return $this->render('FundeuisInscripcionpreicfesBundle:Cursos:Buscar.html.twig', array('nombrecurso' => $nombreCurso, 'cursos' => $curso, 'limite' => $limite));
     }
 
     /*
@@ -62,6 +65,7 @@ class CursosController extends Controller {
         $curso = new Curso();
         $usuarioCurso = new UsuarioCurso();
         $usuarioPreMatriculados = new UsuarioCurso();
+
         $usuarioCurso = $em->getRepository('FundeuisInscripcionpreicfesBundle:UsuarioCurso')->findBy(array('curso' => $id, 'estado' => true));
         $usuarioPreMatriculados = $em->getRepository('FundeuisInscripcionpreicfesBundle:UsuarioCurso')->findBy(array('curso' => $id, 'estado' => false));
 
@@ -69,8 +73,18 @@ class CursosController extends Controller {
         return $this->render('FundeuisInscripcionpreicfesBundle:Cursos:Vista.html.twig', array('curso' => $curso, 'matriculados' => $usuarioCurso, 'prematriculados' => $usuarioPreMatriculados));
     }
 
-    public function EliminarAction() {
-        
+    /*
+     * Recibe el id correspondiente al idcurso del Modelo Curso
+     */
+
+    public function EliminarAction($id) {
+        $em = $this->getDoctrine()->getManager();
+        $curso = new Curso();
+        $curso = $em->getRepository('FundeuisInscripcionpreicfesBundle:Curso')->find($id);
+        $em->remove($curso);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('fundeuis_inscripcionpreicfes_cursos_buscar'));
     }
 
 }

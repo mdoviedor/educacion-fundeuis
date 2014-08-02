@@ -1,67 +1,89 @@
 {% extends "::base.html.twig" %}
 {% block menu %}
-<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-    <div class="container">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">FUNDEUIS</a>
-        </div>
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">FUNDEUIS</a>
+            </div>
 
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-            </ul>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                </ul>
 
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">Inicio</a></li>
-                <li><a href="#">Usuarios</a></li>                
-                <li><a href="#">Mensajes <span class="badge alert-danger"></a></li> 
-                <li class="dropdown active">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Opciones<b class="caret"></b></a>
-                    <ul class="dropdown-menu">                       
-                        <li><a href="#">Perfil</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#">Ayuda</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#">Salir</a></li>                       
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">Inicio</a></li>
+                    <li><a href="#">Usuarios</a></li>                
+                    <li><a href="#">Mensajes <span class="badge alert-danger"></a></li> 
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Opciones<b class="caret"></b></a>
+                        <ul class="dropdown-menu">                       
+                            <li><a href="#">Perfil</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">Ayuda</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">Salir</a></li>                       
 
-                    </ul>
-                </li>
-            </ul>
-        </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
-</nav>
+                        </ul>
+                    </li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
 {% endblock %}
 
 {% block body %}
-<br><br>
+    <br><br>
 
-<div class="container">
+    <div class="container">
 
-    <div class="page-header">
-{% block titulo %}
-{% endblock %}
-    </div>
-    <div class="row">
-        <div class="col-xs-6 col-md-4" style="border-color: #000;">
-            {% block submenuizquierdo %}
+        <div class="page-header">
+            {% block titulo %}
             {% endblock %}
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-8" style="text-align: right;">
-             {% block submenuderecho %}
-            {% endblock %}
+        <div class="row">
+            <div class="col-xs-6 col-md-4" style="border-color: #000;">
+                {% block submenuizquierdo %}
+                {% endblock %}
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-8" style="text-align: right;">
+                {% block submenuderecho %}
+                {% endblock %}
+            </div>
         </div>
-    </div>
 
-{% block contenido %}
-{% endblock %}
-</div>
+        {% block notificacioExito %}
+            {% for flashMessage in app.session.flashbag.get('notice') %}
+                <div class="flash-notice">
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <strong>Felicidades!</strong> {{ flashMessage }}
+                    </div>
+
+                </div>
+            {% endfor %}
+            {% for flashMessage in app.session.flashbag.get('error') %}
+                <div class="flash-notice">
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <strong>Alerta!</strong> {{ flashMessage }}
+                    </div>
+
+                </div>
+            {% endfor %}
+
+        {% endblock %}
+
+        {% block contenido %}
+        {% endblock %}
+    </div>
 
 {% endblock %}
 {% block javascripts %}
